@@ -18,9 +18,22 @@ public static partial class ProceduralDungeonGenerator
             AddRoom(RoomType.Normal, new Coordinate(0, -1));
         }
 
+        foreach (Room r in GetDungeonRooms())
+        {
+            UnityEngine.Debug.Log(r.coordinate.x + "," + r.coordinate.y);
+        }
+
+        //GetRandomValueFromZeroToOne()
+
+        //
+
+        // for (int i = 0; i < 100; i++)
+        //     UnityEngine.Debug.Log();
 
 
+        // "find one of two of empty space", "adjacency information", "check if a room already has those coords"
         ///randomize the Coordinate of the rooms being added
+        //
         /// randomize Room type 
         /// 
 

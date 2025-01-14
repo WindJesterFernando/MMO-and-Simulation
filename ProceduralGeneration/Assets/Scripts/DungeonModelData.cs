@@ -44,6 +44,7 @@ public static partial class ProceduralDungeonGenerator
     {
         rooms.Clear();
         doors.Clear();
+        dungeonModelData.Clear();
     }
 
     public static LinkedList<DungeonModelData> GetDungeonModelData()
@@ -55,12 +56,16 @@ public static partial class ProceduralDungeonGenerator
     {
         return rooms;
     }
-    
+
     public static LinkedList<Door> GetDungeonDoors()
     {
         return doors;
     }
-    
+
+    private static double GetRandomValueFromZeroToOne()
+    {
+        return rand.NextDouble();
+    }
 
 }
 
@@ -92,7 +97,7 @@ public class Coordinate
     }
 }
 
-public abstract class DungeonModelData {}
+public abstract class DungeonModelData { }
 
 public class Door : DungeonModelData
 {
