@@ -26,8 +26,6 @@ public static partial class ProceduralDungeonGenerator
 
     public static void ProcedurallyGenerateDungeon()
     {
-
-
         Room startRoom = AddRoom(RoomType.Start, new Coordinate(0, 0));
 
 
@@ -50,26 +48,8 @@ public static partial class ProceduralDungeonGenerator
 
         AddRoom(RoomType.Normal, new Coordinate(1, 0));
 
-        // foreach (Room r in GetDungeonRooms())
-        // {
-        //     if (r.coordinate.x == coord.x && r.coordinate.y == coord.y)
-        //         UnityEngine.Debug.Log("2222 room ot the right");
-        //     else
-        //         UnityEngine.Debug.Log("2222 no room ot the right");
-        // }
-
         if (DoesTileExist(coord))
             UnityEngine.Debug.Log("2 Tile Does Exist");
-
-        //for loop
-
-        //foreach (Room r in GetDungeonRooms())
-        //{
-
-        //r.coordinate.x
-        //}
-
-        // foreach(Door d in GetDungeonDoors()) { }
 
 
 
