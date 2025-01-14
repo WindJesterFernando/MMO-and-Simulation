@@ -10,22 +10,54 @@ public static partial class ProceduralDungeonGenerator
         AddRoom(RoomType.Start, new Coordinate(0, 0));
 
 
-        AddRoom(RoomType.Normal, new Coordinate(1, 0));
-        AddRoom(RoomType.Normal, new Coordinate(-1, 0));
+        // AddRoom(RoomType.Normal, new Coordinate(1, 0));
+        // AddRoom(RoomType.Normal, new Coordinate(-1, 0));
 
-        if (Roll(50))
-        {
-            AddRoom(RoomType.Normal, new Coordinate(0, -1));
-        }
+        // if (Roll(50))
+        // {
+        //     AddRoom(RoomType.Normal, new Coordinate(0, -1));
+        // }
+
+
+        // for (int i = 0; i < 100; i++)
+        //     UnityEngine.Debug.Log((int) (GetRandomValueFromZeroToOne() * 2));
+
+
+        // for (int i = 0; i < 100; i++)
+        // {
+        //     int newX = (int)(GetRandomValueFromZeroToOne() * 2);
+        //     int newY = (int)(GetRandomValueFromZeroToOne() * 2);
+
+        //     Coordinate coord = new Coordinate(newX, newY);
+
+        //     UnityEngine.Debug.Log(coord.x + "," + coord.y);
+        // }
+
+        //
 
         foreach (Room r in GetDungeonRooms())
         {
-            UnityEngine.Debug.Log(r.coordinate.x + "," + r.coordinate.y);
+            int newX = (int)(GetRandomValueFromZeroToOne() * 2);
+            int newY = (int)(GetRandomValueFromZeroToOne() * 2);
+
+            Coordinate coord = new Coordinate(newX, newY);
+
+            UnityEngine.Debug.Log(coord.x + "," + coord.y);
+
+            if (r.coordinate.x == coord.x && r.coordinate.y == coord.y)
+                UnityEngine.Debug.Log("exists");
+            else
+                UnityEngine.Debug.Log("does not exists");
+                //room exists!!
+                //UnityEngine.Debug.Log(r.coordinate.x + "," + r.coordinate.y);
         }
+
+
+
 
         //GetRandomValueFromZeroToOne()
 
-        //
+        //else add room at those coordinates
 
         // for (int i = 0; i < 100; i++)
         //     UnityEngine.Debug.Log();
