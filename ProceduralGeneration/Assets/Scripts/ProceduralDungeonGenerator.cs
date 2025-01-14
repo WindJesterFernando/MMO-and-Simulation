@@ -35,25 +35,28 @@ public static partial class ProceduralDungeonGenerator
 
         //
 
+        
+
         int newX = (int)(GetRandomValueFromZeroToOne() * 2);
         int newY = (int)(GetRandomValueFromZeroToOne() * 2);
 
         Coordinate coord = new Coordinate(newX, newY);
 
         UnityEngine.Debug.Log(coord.x + "," + coord.y);
-        
+
+
+        bool roomExists = false;
 
         foreach (Room r in GetDungeonRooms())
         {
             if (r.coordinate.x == coord.x && r.coordinate.y == coord.y)
-                UnityEngine.Debug.Log("exists");
-            else
-                UnityEngine.Debug.Log("does not exists");
-            //room exists!!
-            //UnityEngine.Debug.Log(r.coordinate.x + "," + r.coordinate.y);
+                roomExists = true;
         }
 
-
+        if(roomExists)
+            UnityEngine.Debug.Log("room does exist at: " + coord.x + "," + coord.y);
+        else
+            UnityEngine.Debug.Log("room does not exist at: " + coord.x + "," + coord.y);
 
 
         //GetRandomValueFromZeroToOne()
