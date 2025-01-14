@@ -83,6 +83,12 @@ public class Coordinate
 {
     public int x, y;
 
+    public Coordinate(Coordinate coordinate)
+    {
+        this.x = coordinate.x;
+        this.y = coordinate.y;
+    }
+
     public Coordinate(int x, int y)
     {
         this.x = x;

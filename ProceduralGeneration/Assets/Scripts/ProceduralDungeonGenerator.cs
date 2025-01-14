@@ -4,59 +4,133 @@ using System.Diagnostics;
 
 public static partial class ProceduralDungeonGenerator
 {
+
+    static public bool DoesTileExist(Coordinate coordinate)
+    {
+        foreach (Room r in GetDungeonRooms())
+        {
+            if (r.coordinate.x == coordinate.x && r.coordinate.y == coordinate.y)
+                return true;
+        }
+
+        return false;
+
+        // bool tileExists = false;
+        // foreach (Room r in GetDungeonRooms())
+        // {
+        //     if (r.coordinate.x == coordinate.x && r.coordinate.y == coordinate.y)
+        //         tileExists = true;
+        // }
+        // return tileExists;
+    }
+
     public static void ProcedurallyGenerateDungeon()
     {
 
-        AddRoom(RoomType.Start, new Coordinate(0, 0));
 
+        Room startRoom = AddRoom(RoomType.Start, new Coordinate(0, 0));
+
+
+        // AddRoom(RoomType.Normal, new Coordinate(1, 0));
+        // AddRoom(RoomType.Normal, new Coordinate(-1, 0));
+
+        // if (Roll(50))
+        //     AddRoom(RoomType.Normal, new Coordinate(0, -1));
+
+        // for (int i = 0; i < 100; i++)
+        //     UnityEngine.Debug.Log(GetRandomValueFromZeroToOne());
+
+
+        Coordinate coord = new Coordinate(startRoom.coordinate);
+        coord.x += 1;
+        coord.y += 0;
+
+        if (DoesTileExist(coord))
+            UnityEngine.Debug.Log("1 Tile Does Exist");
 
         AddRoom(RoomType.Normal, new Coordinate(1, 0));
-        AddRoom(RoomType.Normal, new Coordinate(-1, 0));
 
-        if (Roll(50))
-        {
-            AddRoom(RoomType.Normal, new Coordinate(0, -1));
-        }
-
-
-        // for (int i = 0; i < 100; i++)
-        //     UnityEngine.Debug.Log((int) (GetRandomValueFromZeroToOne() * 2));
-
-
-        // for (int i = 0; i < 100; i++)
+        // foreach (Room r in GetDungeonRooms())
         // {
-        //     int newX = (int)(GetRandomValueFromZeroToOne() * 2);
-        //     int newY = (int)(GetRandomValueFromZeroToOne() * 2);
-
-        //     Coordinate coord = new Coordinate(newX, newY);
-
-        //     UnityEngine.Debug.Log(coord.x + "," + coord.y);
+        //     if (r.coordinate.x == coord.x && r.coordinate.y == coord.y)
+        //         UnityEngine.Debug.Log("2222 room ot the right");
+        //     else
+        //         UnityEngine.Debug.Log("2222 no room ot the right");
         // }
 
-        //
+        if (DoesTileExist(coord))
+            UnityEngine.Debug.Log("2 Tile Does Exist");
 
-        
+        //for loop
 
-        int newX = (int)(GetRandomValueFromZeroToOne() * 2);
-        int newY = (int)(GetRandomValueFromZeroToOne() * 2);
+        //foreach (Room r in GetDungeonRooms())
+        //{
 
-        Coordinate coord = new Coordinate(newX, newY);
+        //r.coordinate.x
+        //}
 
-        UnityEngine.Debug.Log(coord.x + "," + coord.y);
+        // foreach(Door d in GetDungeonDoors()) { }
 
 
-        bool roomExists = false;
 
-        foreach (Room r in GetDungeonRooms())
-        {
-            if (r.coordinate.x == coord.x && r.coordinate.y == coord.y)
-                roomExists = true;
-        }
+        //how about finding all the tiles that would be adjacent to a room 
+        //and then creating a room in a random one of those tiles
+        //, then doing that 20 times
 
-        if(roomExists)
-            UnityEngine.Debug.Log("room does exist at: " + coord.x + "," + coord.y);
-        else
-            UnityEngine.Debug.Log("room does not exist at: " + coord.x + "," + coord.y);
+
+
+
+
+        // AddRoom(RoomType.Start, new Coordinate(0, 0));
+
+
+        // AddRoom(RoomType.Normal, new Coordinate(1, 0));
+        // AddRoom(RoomType.Normal, new Coordinate(-1, 0));
+
+        // if (Roll(50))
+        // {
+        //     AddRoom(RoomType.Normal, new Coordinate(0, -1));
+        // }
+
+
+        // // for (int i = 0; i < 100; i++)
+        // //     UnityEngine.Debug.Log((int) (GetRandomValueFromZeroToOne() * 2));
+
+
+        // // for (int i = 0; i < 100; i++)
+        // // {
+        // //     int newX = (int)(GetRandomValueFromZeroToOne() * 2);
+        // //     int newY = (int)(GetRandomValueFromZeroToOne() * 2);
+
+        // //     Coordinate coord = new Coordinate(newX, newY);
+
+        // //     UnityEngine.Debug.Log(coord.x + "," + coord.y);
+        // // }
+
+        // //
+
+
+
+        // int newX = (int)(GetRandomValueFromZeroToOne() * 2);
+        // int newY = (int)(GetRandomValueFromZeroToOne() * 2);
+
+        // Coordinate coord = new Coordinate(newX, newY);
+
+        // UnityEngine.Debug.Log(coord.x + "," + coord.y);
+
+
+        // bool roomExists = false;
+
+        // foreach (Room r in GetDungeonRooms())
+        // {
+        //     if (r.coordinate.x == coord.x && r.coordinate.y == coord.y)
+        //         roomExists = true;
+        // }
+
+        // if(roomExists)
+        //     UnityEngine.Debug.Log("room does exist at: " + coord.x + "," + coord.y);
+        // else
+        //     UnityEngine.Debug.Log("room does not exist at: " + coord.x + "," + coord.y);
 
 
         //GetRandomValueFromZeroToOne()
