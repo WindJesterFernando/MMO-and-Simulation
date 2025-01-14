@@ -1,12 +1,34 @@
 
+using System.Collections.Generic;
+using System.Diagnostics;
+
 public static partial class ProceduralDungeonGenerator
 {
     public static void ProcedurallyGenerateDungeon()
     {
 
+        AddRoom(RoomType.Start, new Coordinate(0, 0));
+
+
+        AddRoom(RoomType.Normal, new Coordinate(1, 0));
+        AddRoom(RoomType.Normal, new Coordinate(-1, 0));
+
+        if (Roll(50))
+        {
+            AddRoom(RoomType.Normal, new Coordinate(0, -1));
+        }
 
 
 
+        ///randomize the Coordinate of the rooms being added
+        /// randomize Room type 
+        /// 
+
+
+
+
+        //figure out how to randomly decide a direction for doors
+        //
 
 
         // for (int i = 0; i < 100; i++)
@@ -44,7 +66,7 @@ public static partial class ProceduralDungeonGenerator
         // AddDoor(DoorType.Bombable, treasureRoom1x_3, secretRoom1x_2);
         // AddDoor(DoorType.Open, room0x_3, bossRoom_1x_3);
         // AddDoor(DoorType.Bombable, room0x_3, superSecretRoom0x_4);
-        
+
         // UnityEngine.Debug.Log("There are " + GetDungeonRooms().Count + " rooms in this dungeon.");
         // UnityEngine.Debug.Log("There are " + GetDungeonDoors().Count + " doors in this dungeon.");
 
@@ -55,7 +77,7 @@ public static partial class ProceduralDungeonGenerator
 }
 
 
-//Procedural Generation:
+// Procedural Generation:
 // Starting room is always at the center
 // Starting room must have 2 or 3 doors
 // We want 20 rooms
@@ -67,3 +89,5 @@ public static partial class ProceduralDungeonGenerator
 // One Boss room
 // Boss room must not be next to the start, must be a certain distance
 // Boss room must only be connected to one other room
+
+
