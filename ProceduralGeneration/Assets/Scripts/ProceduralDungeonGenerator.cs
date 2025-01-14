@@ -28,17 +28,6 @@ public static partial class ProceduralDungeonGenerator
     {
         Room startRoom = AddRoom(RoomType.Start, new Coordinate(0, 0));
 
-
-        // AddRoom(RoomType.Normal, new Coordinate(1, 0));
-        // AddRoom(RoomType.Normal, new Coordinate(-1, 0));
-
-        // if (Roll(50))
-        //     AddRoom(RoomType.Normal, new Coordinate(0, -1));
-
-        // for (int i = 0; i < 100; i++)
-        //     UnityEngine.Debug.Log(GetRandomValueFromZeroToOne());
-
-
         Coordinate coord = new Coordinate(startRoom.coordinate);
         coord.x += 1;
         coord.y += 0;
@@ -50,6 +39,28 @@ public static partial class ProceduralDungeonGenerator
 
         if (DoesTileExist(coord))
             UnityEngine.Debug.Log("2 Tile Does Exist");
+
+        
+
+
+        //check if valid
+        //create room
+
+        // if (DoesTileExist(coord))
+        //     Room secondRoom = AddRoom(RoomType.Normal, new Coordinate(2, 0));
+
+
+
+
+
+        // AddRoom(RoomType.Normal, new Coordinate(1, 0));
+        // AddRoom(RoomType.Normal, new Coordinate(-1, 0));
+
+        // if (Roll(50))
+        //     AddRoom(RoomType.Normal, new Coordinate(0, -1));
+
+        // for (int i = 0; i < 100; i++)
+        //     UnityEngine.Debug.Log(GetRandomValueFromZeroToOne());
 
 
 
