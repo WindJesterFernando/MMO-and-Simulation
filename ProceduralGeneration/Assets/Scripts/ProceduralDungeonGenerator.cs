@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -64,6 +65,45 @@ public static partial class ProceduralDungeonGenerator
             AddRoom(RoomType.Normal, coordinateToTryAndCreateRoomAt);
     }
 
+    public static List<Room> GetNeighbours(Coordinate coordOfRoomToCenterOn)
+    {
+        List<Room> neighbours = new List<Room>();
+        foreach (Room r in GetDungeonRooms())
+        {
+            if (r.coordinate.x == coordOfRoomToCenterOn.x && r.coordinate.y == coordOfRoomToCenterOn.y)
+                continue;
+
+            bool isNeighbourOnX = 
+                Math.Abs(coordOfRoomToCenterOn.x - r.coordinate.x) < 2
+                && coordOfRoomToCenterOn.y == r.coordinate.y;
+
+            bool isNeighbourOnY = 
+                Math.Abs(coordOfRoomToCenterOn.y - r.coordinate.y) < 2
+                && coordOfRoomToCenterOn.x == r.coordinate.x;
+
+            if (isNeighbourOnX || isNeighbourOnY)
+                neighbours.Add(r);
+        }
+
+        return neighbours;
+    }
+
+
+    public static Room GetRandomRoom()
+    {
+        int indexOfRoomToUse = (int)(GetRandomValueFromZeroToOne() * (double)GetDungeonRooms().Count);
+        int i = 0;
+        foreach (Room r in GetDungeonRooms())
+        {
+            if (i == indexOfRoomToUse)
+            {
+                return r;
+            }
+            i++;
+        }
+
+        return null;
+    }
     public static void ProcedurallyGenerateDungeon()
     {
         Coordinate startCoord = new Coordinate(0, 0);
@@ -71,21 +111,34 @@ public static partial class ProceduralDungeonGenerator
         AttemptToCreateRoomInRandomDirection(startCoord);
         AttemptToCreateRoomInRandomDirection(startCoord);
 
+        int catchInfitity = 9000;
         while (GetDungeonRooms().Count < 20)
         {
-            Coordinate roomToCenterOn = GetDungeonRooms().Last.Value.coordinate;
-            int indexOfRoomToUse = (int)(GetRandomValueFromZeroToOne() * (double)GetDungeonRooms().Count);
-            int i = 0;
-            foreach (Room r in GetDungeonRooms())
+            #region Inifite Loop Protection
+
+            catchInfitity--;
+            if (catchInfitity == 0)
             {
-                i++;
-                if (i == indexOfRoomToUse)
-                {
-                    roomToCenterOn = r.coordinate;
-                }
+                UnityEngine.Debug.Log("----Caught Infinity-----");
+                break;
             }
 
-            AttemptToCreateRoomInRandomDirection(roomToCenterOn);
+            #endregion
+
+            Coordinate coordOfRoomToCenterOn = GetRandomRoom().coordinate;
+            List<Room> neighbours = GetNeighbours(coordOfRoomToCenterOn);
+
+            //UnityEngine.Debug.Log("neighbour count == " + neighbours.Count);
+
+            if (neighbours.Count > 2)
+                continue;
+            if (neighbours.Count > 1 && Roll(75))
+            {
+                UnityEngine.Debug.Log("fsdfdsfdsfgsdfges");
+                continue;
+            }
+
+            AttemptToCreateRoomInRandomDirection(coordOfRoomToCenterOn);
         }
 
 
