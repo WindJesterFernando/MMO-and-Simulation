@@ -64,34 +64,54 @@ public static partial class ProceduralDungeonGenerator
             AddRoom(RoomType.Normal, coordinateToTryAndCreateRoomAt);
     }
 
-
-
     public static void ProcedurallyGenerateDungeon()
     {
         Coordinate startCoord = new Coordinate(0, 0);
         AddRoom(RoomType.Start, startCoord);
         AttemptToCreateRoomInRandomDirection(startCoord);
-        //AttemptToCreateRoomInRandomDirection(startCoord);
+        AttemptToCreateRoomInRandomDirection(startCoord);
 
-        // if (Roll(50))
-        // {
-        //     AttemptToCreateRoomInRandomDirection(startCoord);
-        // }
+        while (GetDungeonRooms().Count < 20)
+        {
+            Coordinate roomToCenterOn = GetDungeonRooms().Last.Value.coordinate;
+            int indexOfRoomToUse = (int)(GetRandomValueFromZeroToOne() * (double)GetDungeonRooms().Count);
+            int i = 0;
+            foreach (Room r in GetDungeonRooms())
+            {
+                i++;
+                if (i == indexOfRoomToUse)
+                {
+                    roomToCenterOn = r.coordinate;
+                }
+            }
+
+            AttemptToCreateRoomInRandomDirection(roomToCenterOn);
+        }
 
 
-        
 
-        AttemptToCreateRoomInRandomDirection(GetDungeonRooms().Last.Value.coordinate);
-        AttemptToCreateRoomInRandomDirection(GetDungeonRooms().Last.Value.coordinate);
-        AttemptToCreateRoomInRandomDirection(GetDungeonRooms().Last.Value.coordinate);
-        AttemptToCreateRoomInRandomDirection(GetDungeonRooms().Last.Value.coordinate);
-        AttemptToCreateRoomInRandomDirection(GetDungeonRooms().Last.Value.coordinate);
-        AttemptToCreateRoomInRandomDirection(GetDungeonRooms().Last.Value.coordinate);
-        AttemptToCreateRoomInRandomDirection(GetDungeonRooms().Last.Value.coordinate);
-        AttemptToCreateRoomInRandomDirection(GetDungeonRooms().Last.Value.coordinate);
-        AttemptToCreateRoomInRandomDirection(GetDungeonRooms().Last.Value.coordinate);
-        AttemptToCreateRoomInRandomDirection(GetDungeonRooms().Last.Value.coordinate);
-        AttemptToCreateRoomInRandomDirection(GetDungeonRooms().Last.Value.coordinate);
+
+        //fix infinite loop
+        //
+        //
+        ///
+        /// 
+
+
+
+        // Procedural Generation:
+        // Starting room is always at the center
+        // Starting room must have 2 or 3 neighbours
+        // We want 20 rooms
+        // All rooms must be connected
+        // Rooms must not snake out too much
+        // Rooms must “tree” out not “bush” in. Rooms should be spread out.
+
+
+
+
+
+
 
 
         //function check if room exists
@@ -107,6 +127,15 @@ public static partial class ProceduralDungeonGenerator
 
 
 
+        // for(int i = 0; i < 20; i++)
+        // {
+        //     if (GetDungeonRooms().Any())
+        //     {
+        //         Coordinate lastRoomCoord = GetDungeonRooms().Last.Value.coordinate;
+
+        //         AttemptToCreateRoomInRandomDirection(lastRoomCoord);
+        //     }
+        // }
 
 
 
