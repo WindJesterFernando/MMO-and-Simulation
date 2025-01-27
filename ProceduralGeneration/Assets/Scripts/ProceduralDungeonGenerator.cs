@@ -153,7 +153,7 @@ public static partial class ProceduralDungeonGenerator
 
         int catchInfitity = 9000;
 
-        while (GetDungeonRooms().Count < 9)
+        while (GetDungeonRooms().Count < 7)
         {
             #region Inifite Loop Protection
 
@@ -169,8 +169,8 @@ public static partial class ProceduralDungeonGenerator
             Coordinate coordOfRoomToCenterOn = GetRandomRoom(roomsOpenToExpansion).coordinate;//GetDungeonRooms().Last.Value.coordinate;//
 
             Room newRoom;
-            
-            if(Roll(85))
+
+            if (Roll(85))
                 newRoom = AttemptToCreateRoomInRandomDirectionWithNeighbourConstraints(coordOfRoomToCenterOn);
             else
                 newRoom = AttemptToCreateRoomInRandomDirection(coordOfRoomToCenterOn);
@@ -186,6 +186,76 @@ public static partial class ProceduralDungeonGenerator
 
             roomsOpenToExpansion.AddLast(GetDungeonRooms().Last.Value);
         }
+
+        MakeBossRoom();
+
+    }
+
+    static private void MakeBossRoom()
+    {
+        double hyp = -1;
+        Room furthestRoom = null;
+        foreach (Room r in GetDungeonRooms())
+        {
+            double x = (double)r.coordinate.x;
+            double y = (double)r.coordinate.y;
+            double newHyp = Math.Sqrt(x * x + y * y);
+
+            if (newHyp > hyp)
+            {
+                furthestRoom = r;
+                hyp = newHyp;
+            }
+        }
+
+        Coordinate bossRoomCoord;
+        bossRoomCoord = new Coordinate(furthestRoom.coordinate);
+
+        if (Math.Abs(bossRoomCoord.x) > Math.Abs(bossRoomCoord.y))
+        {
+            if (bossRoomCoord.x > 0)
+                bossRoomCoord.x++;
+            else
+                bossRoomCoord.x--;
+        }
+        else
+        {
+            if (bossRoomCoord.y > 0)
+                bossRoomCoord.y++;
+            else
+                bossRoomCoord.y--;
+        }
+
+
+        AddRoom(RoomType.Boss, bossRoomCoord);
+        //furthestRoom.type = RoomType.Boss;
+
+        // Coordinate bossRoomCoord = null;
+        // double bossRoomHyp = -1;
+        // bool hasOnlyOneNeighbour = false;
+
+
+
+
+        // while (true)
+        // {
+        // bossRoomCoord = GetCoordinateInRandomDirection(furthestRoom.coordinate);
+        // double x = (double)bossRoomCoord.x;
+        // double y = (double)bossRoomCoord.y;
+        // bossRoomHyp = Math.Sqrt(x * x + y * y);
+
+        // hasOnlyOneNeighbour = (GetNeighbours(bossRoomCoord).Count == 1);
+        // if (bossRoomHyp < hyp)
+        // {
+        //     if (hasOnlyOneNeighbour)
+        //         break;
+        // }
+        // break;
+        // }
+
+        //AddRoom(RoomType.Boss, bossRoomCoord);
+
+
     }
 
 
