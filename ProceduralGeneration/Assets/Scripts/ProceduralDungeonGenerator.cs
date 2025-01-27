@@ -38,7 +38,7 @@ public static partial class ProceduralDungeonGenerator
         return false;
     }
 
-    public static void AttemptToCreateRoomInRandomDirection(Coordinate coordinateToCenterOn)
+    public static Room AttemptToCreateRoomInRandomDirection(Coordinate coordinateToCenterOn)
     {
         Direction randomDirection = GetRandomDirection();
 
@@ -62,7 +62,12 @@ public static partial class ProceduralDungeonGenerator
         }
 
         if (!DoesRoomExistAtCoordinate(coordinateToTryAndCreateRoomAt))
-            AddRoom(RoomType.Normal, coordinateToTryAndCreateRoomAt);
+        {
+            Room newRoom = AddRoom(RoomType.Normal, coordinateToTryAndCreateRoomAt);
+            return newRoom;
+        }
+
+        return null;
     }
 
     public static List<Room> GetNeighbours(Coordinate coordOfRoomToCenterOn)
@@ -73,11 +78,11 @@ public static partial class ProceduralDungeonGenerator
             if (r.coordinate.x == coordOfRoomToCenterOn.x && r.coordinate.y == coordOfRoomToCenterOn.y)
                 continue;
 
-            bool isNeighbourOnX = 
+            bool isNeighbourOnX =
                 Math.Abs(coordOfRoomToCenterOn.x - r.coordinate.x) < 2
                 && coordOfRoomToCenterOn.y == r.coordinate.y;
 
-            bool isNeighbourOnY = 
+            bool isNeighbourOnY =
                 Math.Abs(coordOfRoomToCenterOn.y - r.coordinate.y) < 2
                 && coordOfRoomToCenterOn.x == r.coordinate.x;
 
@@ -89,11 +94,11 @@ public static partial class ProceduralDungeonGenerator
     }
 
 
-    public static Room GetRandomRoom()
+    public static Room GetRandomRoom(LinkedList<Room> rooms)
     {
-        int indexOfRoomToUse = (int)(GetRandomValueFromZeroToOne() * (double)GetDungeonRooms().Count);
+        int indexOfRoomToUse = (int)(GetRandomValueFromZeroToOne() * (double)rooms.Count);
         int i = 0;
-        foreach (Room r in GetDungeonRooms())
+        foreach (Room r in rooms)
         {
             if (i == indexOfRoomToUse)
             {
@@ -104,14 +109,25 @@ public static partial class ProceduralDungeonGenerator
 
         return null;
     }
+
     public static void ProcedurallyGenerateDungeon()
     {
+        LinkedList<Room> roomsOpenToExpansion = new LinkedList<Room>();
+        Room r;
+
         Coordinate startCoord = new Coordinate(0, 0);
-        AddRoom(RoomType.Start, startCoord);
-        AttemptToCreateRoomInRandomDirection(startCoord);
-        AttemptToCreateRoomInRandomDirection(startCoord);
+        r = AddRoom(RoomType.Start, startCoord);
+        roomsOpenToExpansion.AddLast(r);
+
+        while (GetDungeonRooms().Count < 3)
+        {
+            r = AttemptToCreateRoomInRandomDirection(startCoord);
+            if (r != null)
+                roomsOpenToExpansion.AddLast(r);
+        }
 
         int catchInfitity = 9000;
+
         while (GetDungeonRooms().Count < 20)
         {
             #region Inifite Loop Protection
@@ -119,156 +135,170 @@ public static partial class ProceduralDungeonGenerator
             catchInfitity--;
             if (catchInfitity == 0)
             {
-                UnityEngine.Debug.Log("----Caught Infinity-----");
+                UnityEngine.Debug.Log("-----Caught Infinity-----");
                 break;
             }
 
             #endregion
 
-            Coordinate coordOfRoomToCenterOn = GetRandomRoom().coordinate;
-            List<Room> neighbours = GetNeighbours(coordOfRoomToCenterOn);
+            Coordinate coordOfRoomToCenterOn = GetRandomRoom(roomsOpenToExpansion).coordinate;//GetDungeonRooms().Last.Value.coordinate;//
+                                                                                              //List<Room> neighbours = GetNeighbours(coordOfRoomToCenterOn);
 
             //UnityEngine.Debug.Log("neighbour count == " + neighbours.Count);
 
-            if (neighbours.Count > 2)
-                continue;
-            if (neighbours.Count > 1 && Roll(75))
-            {
-                UnityEngine.Debug.Log("fsdfdsfdsfgsdfges");
-                continue;
-            }
+            // if (neighbours.Count > 2)
+            //     continue;
 
-            AttemptToCreateRoomInRandomDirection(coordOfRoomToCenterOn);
+            // if (neighbours.Count > 1 && Roll(50))
+            // {
+            //     UnityEngine.Debug.Log("fsdfdsfdsfgsdfges");
+            //     continue;
+            // }
+
+            //if()
+
+            Room newRoom = AttemptToCreateRoomInRandomDirection(coordOfRoomToCenterOn);
+
+            if (newRoom == null)
+                continue;
+
+            List<Room> neighboursOfNewRoom = GetNeighbours(newRoom.coordinate);
+            if (neighboursOfNewRoom.Count > 2)
+                continue;
+            if (neighboursOfNewRoom.Count > 1 && Roll(50))
+                continue;
+
+            roomsOpenToExpansion.AddLast(GetDungeonRooms().Last.Value);
         }
-
-
-
-
-        //fix infinite loop
-        //
-        //
-        ///
-        /// 
-
-
-
-        // Procedural Generation:
-        // Starting room is always at the center
-        // Starting room must have 2 or 3 neighbours
-        // We want 20 rooms
-        // All rooms must be connected
-        // Rooms must not snake out too much
-        // Rooms must “tree” out not “bush” in. Rooms should be spread out.
-
-
-
-
-
-
-
-
-        //function check if room exists
-        //enum for direction
-        //function that returns a random direction
-
-        //"we are always progressign from the center, 
-        //rather than moving to the most recent generated room"
-
-        //associate direction with coord (dictionary)
-        //use switch statement
-
-
-
-
-        // for(int i = 0; i < 20; i++)
-        // {
-        //     if (GetDungeonRooms().Any())
-        //     {
-        //         Coordinate lastRoomCoord = GetDungeonRooms().Last.Value.coordinate;
-
-        //         AttemptToCreateRoomInRandomDirection(lastRoomCoord);
-        //     }
-        // }
-
-
-
-
-
-
-
-        // AddRoom(RoomType.Normal, new Coordinate(1, 0));
-
-        // AddRoom(RoomType.Normal, new Coordinate(-1, 0));
-
-        // //pick a random direction and put the room there
-
-
-        // if (Roll(50))
-        // {
-        //     // AddRoom(RoomType.Normal, new Coordinate(0, -1));
-
-        //     randomDirection = GetRandomValueFromZeroToOne();
-
-        //     if (randomDirection > 0.75f)
-        //         AddRoom(RoomType.Normal, new Coordinate(0, 1));
-        //     else if (randomDirection > 0.5f)
-        //         AddRoom(RoomType.Normal, new Coordinate(0, -1));
-        //     else if (randomDirection > 0.25f)
-        //         AddRoom(RoomType.Normal, new Coordinate(1, 0));
-        //     else
-        //         AddRoom(RoomType.Normal, new Coordinate(-1, 0));
-        // }
-
-
-
-
-        // UnityEngine.Debug.Log(GetRandomValueFromZeroToOne());
-
-
-        // for (int i = 0; i < 100; i++)
-        // {
-        //     if (Roll(10))
-        //         UnityEngine.Debug.Log("Roll with 10% chance: True");
-        //     else
-        //         UnityEngine.Debug.Log("Roll with 10% chance: False");
-        // }
-
-        // Room startRoom0x0 = AddRoom(RoomType.Start, new Coordinate(0, 0));
-        // Room room1x0 = AddRoom(RoomType.Normal, new Coordinate(1, 0));
-        // Room room_1x0 = AddRoom(RoomType.Normal, new Coordinate(-1, 0));
-        // Room room0x_1 = AddRoom(RoomType.Normal, new Coordinate(0, -1));
-        // Room shopRoom_2x0 = AddRoom(RoomType.Shop, new Coordinate(-2, 0));
-        // Room room1x_1 = AddRoom(RoomType.Trap, new Coordinate(1, -1));
-        // Room room0x_2 = AddRoom(RoomType.Normal, new Coordinate(0, -2));
-        // Room room0x_3 = AddRoom(RoomType.Trap, new Coordinate(0, -3));
-        // Room treasureRoom1x_3 = AddRoom(RoomType.Treasure, new Coordinate(1, -3));
-        // Room secretRoom1x_2 = AddRoom(RoomType.Secret, new Coordinate(1, -2));
-        // Room bossRoom_1x_3 = AddRoom(RoomType.Boss, new Coordinate(-1, -3));
-        // Room superSecretRoom0x_4 = AddRoom(RoomType.SuperSecret, new Coordinate(0, -4));
-
-        // AddDoor(DoorType.Open, startRoom0x0, room1x0);
-        // AddDoor(DoorType.Open, startRoom0x0, room_1x0);
-        // AddDoor(DoorType.Open, startRoom0x0, room0x_1);
-        // AddDoor(DoorType.Locked, room_1x0, shopRoom_2x0);
-        // AddDoor(DoorType.Open, room1x0, room1x_1);
-        // AddDoor(DoorType.Open, room0x_1, room1x_1);
-        // AddDoor(DoorType.Open, room0x_1, room0x_2);
-        // AddDoor(DoorType.Open, room0x_2, room0x_3);
-        // AddDoor(DoorType.Locked, room0x_3, treasureRoom1x_3);
-        // AddDoor(DoorType.Bombable, room0x_2, secretRoom1x_2);
-        // AddDoor(DoorType.Bombable, room1x_1, secretRoom1x_2);
-        // AddDoor(DoorType.Bombable, treasureRoom1x_3, secretRoom1x_2);
-        // AddDoor(DoorType.Open, room0x_3, bossRoom_1x_3);
-        // AddDoor(DoorType.Bombable, room0x_3, superSecretRoom0x_4);
-
-        // UnityEngine.Debug.Log("There are " + GetDungeonRooms().Count + " rooms in this dungeon.");
-        // UnityEngine.Debug.Log("There are " + GetDungeonDoors().Count + " doors in this dungeon.");
-
-        // foreach(Room r in GetDungeonRooms()) { }
-        // foreach(Door d in GetDungeonDoors()) { }
-
-
     }
+
+
+
+
+
+    //fix infinite loop
+    //
+    //
+    ///
+    /// 
+
+
+
+    // Procedural Generation:
+    // Starting room is always at the center
+    // Starting room must have 2 or 3 neighbours
+    // We want 20 rooms
+    // All rooms must be connected
+    // Rooms must not snake out too much
+    // Rooms must “tree” out not “bush” in. Rooms should be spread out.
+
+
+
+
+
+
+
+
+    //function check if room exists
+    //enum for direction
+    //function that returns a random direction
+
+    //"we are always progressign from the center, 
+    //rather than moving to the most recent generated room"
+
+    //associate direction with coord (dictionary)
+    //use switch statement
+
+
+
+
+    // for(int i = 0; i < 20; i++)
+    // {
+    //     if (GetDungeonRooms().Any())
+    //     {
+    //         Coordinate lastRoomCoord = GetDungeonRooms().Last.Value.coordinate;
+
+    //         AttemptToCreateRoomInRandomDirection(lastRoomCoord);
+    //     }
+    // }
+
+
+
+
+
+
+
+    // AddRoom(RoomType.Normal, new Coordinate(1, 0));
+
+    // AddRoom(RoomType.Normal, new Coordinate(-1, 0));
+
+    // //pick a random direction and put the room there
+
+
+    // if (Roll(50))
+    // {
+    //     // AddRoom(RoomType.Normal, new Coordinate(0, -1));
+
+    //     randomDirection = GetRandomValueFromZeroToOne();
+
+    //     if (randomDirection > 0.75f)
+    //         AddRoom(RoomType.Normal, new Coordinate(0, 1));
+    //     else if (randomDirection > 0.5f)
+    //         AddRoom(RoomType.Normal, new Coordinate(0, -1));
+    //     else if (randomDirection > 0.25f)
+    //         AddRoom(RoomType.Normal, new Coordinate(1, 0));
+    //     else
+    //         AddRoom(RoomType.Normal, new Coordinate(-1, 0));
+    // }
+
+
+
+
+    // UnityEngine.Debug.Log(GetRandomValueFromZeroToOne());
+
+
+    // for (int i = 0; i < 100; i++)
+    // {
+    //     if (Roll(10))
+    //         UnityEngine.Debug.Log("Roll with 10% chance: True");
+    //     else
+    //         UnityEngine.Debug.Log("Roll with 10% chance: False");
+    // }
+
+    // Room startRoom0x0 = AddRoom(RoomType.Start, new Coordinate(0, 0));
+    // Room room1x0 = AddRoom(RoomType.Normal, new Coordinate(1, 0));
+    // Room room_1x0 = AddRoom(RoomType.Normal, new Coordinate(-1, 0));
+    // Room room0x_1 = AddRoom(RoomType.Normal, new Coordinate(0, -1));
+    // Room shopRoom_2x0 = AddRoom(RoomType.Shop, new Coordinate(-2, 0));
+    // Room room1x_1 = AddRoom(RoomType.Trap, new Coordinate(1, -1));
+    // Room room0x_2 = AddRoom(RoomType.Normal, new Coordinate(0, -2));
+    // Room room0x_3 = AddRoom(RoomType.Trap, new Coordinate(0, -3));
+    // Room treasureRoom1x_3 = AddRoom(RoomType.Treasure, new Coordinate(1, -3));
+    // Room secretRoom1x_2 = AddRoom(RoomType.Secret, new Coordinate(1, -2));
+    // Room bossRoom_1x_3 = AddRoom(RoomType.Boss, new Coordinate(-1, -3));
+    // Room superSecretRoom0x_4 = AddRoom(RoomType.SuperSecret, new Coordinate(0, -4));
+
+    // AddDoor(DoorType.Open, startRoom0x0, room1x0);
+    // AddDoor(DoorType.Open, startRoom0x0, room_1x0);
+    // AddDoor(DoorType.Open, startRoom0x0, room0x_1);
+    // AddDoor(DoorType.Locked, room_1x0, shopRoom_2x0);
+    // AddDoor(DoorType.Open, room1x0, room1x_1);
+    // AddDoor(DoorType.Open, room0x_1, room1x_1);
+    // AddDoor(DoorType.Open, room0x_1, room0x_2);
+    // AddDoor(DoorType.Open, room0x_2, room0x_3);
+    // AddDoor(DoorType.Locked, room0x_3, treasureRoom1x_3);
+    // AddDoor(DoorType.Bombable, room0x_2, secretRoom1x_2);
+    // AddDoor(DoorType.Bombable, room1x_1, secretRoom1x_2);
+    // AddDoor(DoorType.Bombable, treasureRoom1x_3, secretRoom1x_2);
+    // AddDoor(DoorType.Open, room0x_3, bossRoom_1x_3);
+    // AddDoor(DoorType.Bombable, room0x_3, superSecretRoom0x_4);
+
+    // UnityEngine.Debug.Log("There are " + GetDungeonRooms().Count + " rooms in this dungeon.");
+    // UnityEngine.Debug.Log("There are " + GetDungeonDoors().Count + " doors in this dungeon.");
+
+    // foreach(Room r in GetDungeonRooms()) { }
+    // foreach(Door d in GetDungeonDoors()) { }
+
 }
 
 
@@ -283,6 +313,15 @@ public static partial class ProceduralDungeonGenerator
 // Rooms must “tree” out not “bush” in. Rooms should be spread out.
 
 
+
+/// 
+// Secret doors must not interfere with main path, they must be off to the side
+// One Shop room
+// Shop room must be locked & only have one door accessing it
+// One Boss room
+// Boss room must not be next to the start, must be a certain distance
+// Boss room must only be connected to one other room
+/// Add doors!
 
 
 
