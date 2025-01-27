@@ -38,7 +38,7 @@ public static partial class ProceduralDungeonGenerator
         return false;
     }
 
-    public static Room AttemptToCreateRoomInRandomDirection(Coordinate coordinateToCenterOn)
+    public static Coordinate GetCoordinateInRandomDirection(Coordinate coordinateToCenterOn)
     {
         Direction randomDirection = GetRandomDirection();
 
@@ -61,10 +61,35 @@ public static partial class ProceduralDungeonGenerator
             coordinateToTryAndCreateRoomAt = new Coordinate(coordinateToCenterOn.x - 1, coordinateToCenterOn.y + 0);
         }
 
+        return coordinateToTryAndCreateRoomAt;
+    }
+
+    public static Room AttemptToCreateRoomInRandomDirection(Coordinate coordinateToCenterOn)
+    {
+        Coordinate coordinateToTryAndCreateRoomAt = GetCoordinateInRandomDirection(coordinateToCenterOn);
+
         if (!DoesRoomExistAtCoordinate(coordinateToTryAndCreateRoomAt))
         {
             Room newRoom = AddRoom(RoomType.Normal, coordinateToTryAndCreateRoomAt);
             return newRoom;
+        }
+
+        return null;
+    }
+
+    public static Room AttemptToCreateRoomInRandomDirectionWithNeighbourConstraints(Coordinate coordinateToCenterOn)
+    {
+        Coordinate coordinateToTryAndCreateRoomAt = GetCoordinateInRandomDirection(coordinateToCenterOn);
+
+        if (!DoesRoomExistAtCoordinate(coordinateToTryAndCreateRoomAt))
+        {
+            List<Room> neighbours = GetNeighbours(coordinateToTryAndCreateRoomAt);
+
+            if (neighbours.Count < 2)
+            {
+                Room newRoom = AddRoom(RoomType.Normal, coordinateToTryAndCreateRoomAt);
+                return newRoom;
+            }
         }
 
         return null;
@@ -128,7 +153,7 @@ public static partial class ProceduralDungeonGenerator
 
         int catchInfitity = 9000;
 
-        while (GetDungeonRooms().Count < 20)
+        while (GetDungeonRooms().Count < 9)
         {
             #region Inifite Loop Protection
 
@@ -142,31 +167,22 @@ public static partial class ProceduralDungeonGenerator
             #endregion
 
             Coordinate coordOfRoomToCenterOn = GetRandomRoom(roomsOpenToExpansion).coordinate;//GetDungeonRooms().Last.Value.coordinate;//
-                                                                                              //List<Room> neighbours = GetNeighbours(coordOfRoomToCenterOn);
 
-            //UnityEngine.Debug.Log("neighbour count == " + neighbours.Count);
-
-            // if (neighbours.Count > 2)
-            //     continue;
-
-            // if (neighbours.Count > 1 && Roll(50))
-            // {
-            //     UnityEngine.Debug.Log("fsdfdsfdsfgsdfges");
-            //     continue;
-            // }
-
-            //if()
-
-            Room newRoom = AttemptToCreateRoomInRandomDirection(coordOfRoomToCenterOn);
+            Room newRoom;
+            
+            if(Roll(85))
+                newRoom = AttemptToCreateRoomInRandomDirectionWithNeighbourConstraints(coordOfRoomToCenterOn);
+            else
+                newRoom = AttemptToCreateRoomInRandomDirection(coordOfRoomToCenterOn);
 
             if (newRoom == null)
                 continue;
 
-            List<Room> neighboursOfNewRoom = GetNeighbours(newRoom.coordinate);
-            if (neighboursOfNewRoom.Count > 2)
-                continue;
-            if (neighboursOfNewRoom.Count > 1 && Roll(50))
-                continue;
+            // List<Room> neighboursOfNewRoom = GetNeighbours(newRoom.coordinate);
+            // if (neighboursOfNewRoom.Count > 2)
+            //     continue;
+            // if (neighboursOfNewRoom.Count > 1 && Roll(50))
+            //     continue;
 
             roomsOpenToExpansion.AddLast(GetDungeonRooms().Last.Value);
         }
@@ -180,7 +196,7 @@ public static partial class ProceduralDungeonGenerator
     //
     //
     ///
-    /// 
+    ///
 
 
 
