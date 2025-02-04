@@ -34,8 +34,8 @@ public class ServerGameLogic : MonoBehaviour
         foreach(ClientPlayerCharacterData player in idToPlayerDictionary.Values)
         {
             if (player.id != clientID)
-            { 
-                NetworkServerProcessing.SendMessageToClient(ServerToClientSignifiers.OtherConnectedClientData + "," + clientID + "," + randSprInd, player.id)
+            {
+                NetworkServerProcessing.SendMessageToClient(ServerToClientSignifiers.OtherConnectedClientData + "," + clientID + "," + randSprInd, player.id);
             }
         }
 

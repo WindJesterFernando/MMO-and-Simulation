@@ -99,7 +99,7 @@ public class NetworkClient : MonoBehaviour
     public void SendMessageToServer(string msg, TransportPipeline pipeline)
     {
         NetworkPipeline networkPipeline = reliableAndInOrderPipeline;
-        if (pipeline == TransportPipeline.FireAndForget)
+        if (pipeline == TransportPipeline.NonReliableNotInOrderedPipeline)
             networkPipeline = nonReliableNotInOrderedPipeline;
 
         byte[] msgAsByteArray = Encoding.Unicode.GetBytes(msg);
