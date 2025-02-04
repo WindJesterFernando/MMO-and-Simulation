@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 87306393}
   - component: {fileID: 87306392}
   - component: {fileID: 87306394}
+  - component: {fileID: 87306395}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -276,6 +277,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 956a847e8853840d7b987b36ce07d348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &87306395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87306391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fed006ef6c0c4312977e1467d332e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spritesToRandomlySelectFrom:
+  - {fileID: -2527786679765055169, guid: c38ec3dd902544cf5995a3103ccb1dd3, type: 3}
+  - {fileID: -3025037830532891788, guid: b98ade1ab9e844f08867ba089dda0f1a, type: 3}
+  - {fileID: 6700069335509878575, guid: b14842fa41d7146bbbbf2452886fea05, type: 3}
+  - {fileID: -2678645735258781611, guid: 064a3081ebf434207828a67b1e9d990f, type: 3}
+  - {fileID: 6580145394450060306, guid: bce1812bac1b04bfab9e20c43fb9bfbf, type: 3}
+  - {fileID: -5574325688505437308, guid: 59a17c1d334bc454ab492770f7f1f8a6, type: 3}
+  - {fileID: -9028629554037727706, guid: 19d1787628d7846e8a9e780dfdbb1543, type: 3}
+  - {fileID: -2751752864804977461, guid: bef79df37870243aabfcf34d3c14afe6, type: 3}
+  - {fileID: 3333141937269803072, guid: 0fcd2e356fedc4be0ba3ad1993f569f3, type: 3}
+  - {fileID: 4825441700472345141, guid: 4bfa0143e48e1444cbc9d706454fc511, type: 3}
+  - {fileID: -5936183559553018053, guid: 424a2a58dea474b93954a6b49c6028a4, type: 3}
+  - {fileID: 7932702069831328442, guid: e7f835fe2d23547e1ac174ba70069ba5, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
