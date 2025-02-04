@@ -61,7 +61,7 @@ public class NetworkClient : MonoBehaviour
             if (pipelineUsedToSendEvent == reliableAndInOrderPipeline)
                 pipelineUsed = TransportPipeline.ReliableAndInOrder;
             else if (pipelineUsedToSendEvent == nonReliableNotInOrderedPipeline)
-                pipelineUsed = TransportPipeline.FireAndForget;
+                pipelineUsed = TransportPipeline.NonReliableNotInOrderedPipeline;
 
             switch (networkEventType)
             {
@@ -141,5 +141,5 @@ public enum TransportPipeline
 {
     NotIdentified,
     ReliableAndInOrder,
-    FireAndForget
+    NonReliableNotInOrderedPipeline
 }

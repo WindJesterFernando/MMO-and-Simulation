@@ -28,6 +28,10 @@ public class NetworkServer : MonoBehaviour
             idToConnectionLookup = new Dictionary<int, NetworkConnection>();
             connectionToIDLookup = new Dictionary<NetworkConnection, int>();
 
+            //NetworkConfigParameter ncp = new NetworkConfigParameter();
+            //ncp.disconnectTimeoutMS = 5000;
+            //networkDriver = NetworkDriver.Create(new NetworkDataStreamParameter(), ncp);
+            
             networkDriver = NetworkDriver.Create();
             reliableAndInOrderPipeline = networkDriver.CreatePipeline(typeof(FragmentationPipelineStage), typeof(ReliableSequencedPipelineStage));
             nonReliableNotInOrderedPipeline = networkDriver.CreatePipeline(typeof(FragmentationPipelineStage));
@@ -98,7 +102,7 @@ public class NetworkServer : MonoBehaviour
                 if (pipelineUsedToSendEvent == reliableAndInOrderPipeline)
                     pipelineUsed = TransportPipeline.ReliableAndInOrder;
                 else if (pipelineUsedToSendEvent == nonReliableNotInOrderedPipeline)
-                    pipelineUsed = TransportPipeline.FireAndForget;
+                    pipelineUsed = TransportPipeline.NonReliableNotInOrderedPipeline;
 
                 switch (networkEventType)
                 {
@@ -159,7 +163,7 @@ public class NetworkServer : MonoBehaviour
     public void SendMessageToClient(string msg, int connectionID, TransportPipeline pipeline)
     {
         NetworkPipeline networkPipeline = reliableAndInOrderPipeline;
-        if(pipeline == TransportPipeline.FireAndForget)
+        if(pipeline == TransportPipeline.NonReliableNotInOrderedPipeline)
             networkPipeline = nonReliableNotInOrderedPipeline;
 
         byte[] msgAsByteArray = Encoding.Unicode.GetBytes(msg);
@@ -180,5 +184,5 @@ public enum TransportPipeline
 {
     NotIdentified,
     ReliableAndInOrder,
-    FireAndForget
+    NonReliableNotInOrderedPipeline
 }

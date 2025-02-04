@@ -17,6 +17,10 @@ static public class NetworkClientProcessing
         {
             clientGameLogic.SetSpriteForPlayerCharacter(int.Parse(csv[1]));
         }
+        else if (signifier == ServerToClientSignifiers.OtherConnectedClientData) 
+        {
+            clientGameLogic.InstantiateOtherPlayerCharacter(int.Parse(csv[1]), int.Parse(csv[2]));
+        }
         // else if (signifier == ServerToClientSignifiers.asd)
         // {
 
@@ -87,6 +91,7 @@ static public class ClientToServerSignifiers
 static public class ServerToClientSignifiers
 {
     public const int RandomizedSpriteIndexForClient = 1;
+    public const int OtherConnectedClientData = 2;
 }
 
 #endregion

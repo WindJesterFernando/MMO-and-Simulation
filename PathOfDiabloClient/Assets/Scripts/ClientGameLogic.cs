@@ -28,4 +28,10 @@ public class ClientGameLogic : MonoBehaviour
         playerCharacter.GetComponent<SpriteRenderer>().sprite = spritesToRandomlySelectFrom[randomIndex];
     }
 
+    public void InstantiateOtherPlayerCharacter(int otherPlayerID, int otherSpriteIndex) 
+    {
+        GameObject otherPlayerCharacter = Instantiate(playerCharacter);
+        otherPlayerCharacter.GetComponent<SpriteRenderer>().sprite = spritesToRandomlySelectFrom[otherSpriteIndex];
+    }
+
 }

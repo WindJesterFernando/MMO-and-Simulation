@@ -39,14 +39,13 @@ static public class NetworkServerProcessing
 
         serverGameLogic.CreatePlayerPrefab(clientConnectionID);
 
-        const int NumberOfSpritesToRandomlySelectFrom = 12;
-        int randInd = Random.Range(0, NumberOfSpritesToRandomlySelectFrom);
-        SendMessageToClient(ServerToClientSignifiers.RandomizedSpriteIndexForClient + "," + randInd, clientConnectionID);
 
+        
     }
     static public void DisconnectionEvent(int clientConnectionID)
     {
         Debug.Log("Client disconnection, ID == " + clientConnectionID);
+        serverGameLogic.RemovePlayer(clientConnectionID);
     }
 
     #endregion
@@ -80,6 +79,7 @@ static public class ClientToServerSignifiers
 static public class ServerToClientSignifiers
 {
     public const int RandomizedSpriteIndexForClient = 1;
+    public const int OtherConnectedClientData = 2;
 }
 
 #endregion
