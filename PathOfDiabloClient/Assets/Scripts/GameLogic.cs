@@ -2,15 +2,25 @@ using UnityEngine;
 
 public class GameLogic : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    [SerializeField]
+    GameObject playerCharacter;
+
+
     void Start()
     {
         NetworkClientProcessing.Init(this);
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
     }
+
+    public void SetSpriteForPlayerCharacter(int randomIndex)
+    {
+        playerCharacter.GetComponent<PlayerCharacterSpriteRandomizer>().SetSpriteFromRandomIndex(randomIndex);
+    }
+
 }

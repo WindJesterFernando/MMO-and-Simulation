@@ -24,7 +24,7 @@ static public class NetworkServerProcessing
 
         //gameLogic.DoSomething();
     }
-    static public void SendMessageToClient(string msg, int clientConnectionID, TransportPipeline pipeline)
+    static public void SendMessageToClient(string msg, int clientConnectionID, TransportPipeline pipeline = TransportPipeline.ReliableAndInOrder)
     {
         networkServer.SendMessageToClient(msg, clientConnectionID, pipeline);
     }
@@ -36,6 +36,13 @@ static public class NetworkServerProcessing
     static public void ConnectionEvent(int clientConnectionID)
     {
         Debug.Log("Client connection, ID == " + clientConnectionID);
+
+        gameLogic.CreatePlayerPrefab(clientConnectionID);
+
+        const int NumberOfSpritesToRandomlySelectFrom = 12;
+        int randInd = Random.Range(0, NumberOfSpritesToRandomlySelectFrom);
+        SendMessageToClient(ServerToClientSignifiers.RandomizedSpriteIndexForClient + "," + randInd, clientConnectionID);
+
     }
     static public void DisconnectionEvent(int clientConnectionID)
     {
@@ -72,7 +79,7 @@ static public class ClientToServerSignifiers
 
 static public class ServerToClientSignifiers
 {
-    public const int asd = 1;
+    public const int RandomizedSpriteIndexForClient = 1;
 }
 
 #endregion

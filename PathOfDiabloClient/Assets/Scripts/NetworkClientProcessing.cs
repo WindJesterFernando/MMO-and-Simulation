@@ -13,10 +13,10 @@ static public class NetworkClientProcessing
         string[] csv = msg.Split(',');
         int signifier = int.Parse(csv[0]);
 
-        // if (signifier == ServerToClientSignifiers.asd)
-        // {
-
-        // }
+        if (signifier == ServerToClientSignifiers.RandomizedSpriteIndexForClient)
+        {
+            gameLogic.SetSpriteForPlayerCharacter(int.Parse(csv[1]));
+        }
         // else if (signifier == ServerToClientSignifiers.asd)
         // {
 
@@ -86,7 +86,7 @@ static public class ClientToServerSignifiers
 
 static public class ServerToClientSignifiers
 {
-    public const int asd = 1;
+    public const int RandomizedSpriteIndexForClient = 1;
 }
 
 #endregion

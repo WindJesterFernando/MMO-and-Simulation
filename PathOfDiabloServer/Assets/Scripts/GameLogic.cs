@@ -2,15 +2,24 @@ using UnityEngine;
 
 public class GameLogic : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    [SerializeField]
+    GameObject playerPrefab;
+
+
     void Start()
     {
         NetworkServerProcessing.Init(this);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
+
+    public void CreatePlayerPrefab(int id)
+    {
+        Instantiate(playerPrefab);
+    }
+
 }

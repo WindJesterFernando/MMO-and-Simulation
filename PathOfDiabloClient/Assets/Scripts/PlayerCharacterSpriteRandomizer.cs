@@ -9,9 +9,14 @@ public class PlayerCharacterSpriteRandomizer : MonoBehaviour
 
     void Start()
     {
-        int randInd = Random.Range(0, spritesToRandomlySelectFrom.Count);
-        GetComponent<SpriteRenderer>().sprite = spritesToRandomlySelectFrom[randInd];
-        
+        // int randInd = Random.Range(0, spritesToRandomlySelectFrom.Count);
+        // GetComponent<SpriteRenderer>().sprite = spritesToRandomlySelectFrom[randInd];
+
+    }
+
+    public void SetSpriteFromRandomIndex(int randomIndex)
+    {
+        GetComponent<SpriteRenderer>().sprite = spritesToRandomlySelectFrom[randomIndex];
     }
 
     // void Update()
