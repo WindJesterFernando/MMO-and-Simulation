@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameLogic : MonoBehaviour
+public class ServerGameLogic : MonoBehaviour
 {
 
     [SerializeField]

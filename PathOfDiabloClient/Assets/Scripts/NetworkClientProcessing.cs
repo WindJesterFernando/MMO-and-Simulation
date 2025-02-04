@@ -15,7 +15,7 @@ static public class NetworkClientProcessing
 
         if (signifier == ServerToClientSignifiers.RandomizedSpriteIndexForClient)
         {
-            gameLogic.SetSpriteForPlayerCharacter(int.Parse(csv[1]));
+            clientGameLogic.SetSpriteForPlayerCharacter(int.Parse(csv[1]));
         }
         // else if (signifier == ServerToClientSignifiers.asd)
         // {
@@ -59,7 +59,7 @@ static public class NetworkClientProcessing
 
     #region Setup
     static NetworkClient networkClient;
-    static GameLogic gameLogic;
+    static ClientGameLogic clientGameLogic;
 
     static public void SetNetworkedClient(NetworkClient NetworkClient)
     {
@@ -69,9 +69,9 @@ static public class NetworkClientProcessing
     {
         return networkClient;
     }
-    static public void Init(GameLogic GameLogic)
+    static public void Init(ClientGameLogic clientGameLogic)
     {
-        gameLogic = GameLogic;
+        NetworkClientProcessing.clientGameLogic = clientGameLogic;
     }
 
     #endregion

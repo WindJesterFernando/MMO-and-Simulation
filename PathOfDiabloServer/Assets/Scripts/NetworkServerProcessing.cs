@@ -37,7 +37,7 @@ static public class NetworkServerProcessing
     {
         Debug.Log("Client connection, ID == " + clientConnectionID);
 
-        gameLogic.CreatePlayerPrefab(clientConnectionID);
+        serverGameLogic.CreatePlayerPrefab(clientConnectionID);
 
         const int NumberOfSpritesToRandomlySelectFrom = 12;
         int randInd = Random.Range(0, NumberOfSpritesToRandomlySelectFrom);
@@ -53,7 +53,7 @@ static public class NetworkServerProcessing
 
     #region Setup
     static NetworkServer networkServer;
-    static GameLogic gameLogic;
+    static ServerGameLogic serverGameLogic;
 
     static public void SetNetworkServer(NetworkServer NetworkServer)
     {
@@ -63,9 +63,9 @@ static public class NetworkServerProcessing
     {
         return networkServer;
     }
-    static public void Init(GameLogic GameLogic)
+    static public void Init(ServerGameLogic serverGameLogic)
     {
-        gameLogic = GameLogic;
+        NetworkServerProcessing.serverGameLogic = serverGameLogic;
     }
 
     #endregion

@@ -1,10 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class GameLogic : MonoBehaviour
+
+public class ClientGameLogic : MonoBehaviour
 {
 
     [SerializeField]
     GameObject playerCharacter;
+
+    [SerializeField]
+    List<Sprite> spritesToRandomlySelectFrom;
 
 
     void Start()
@@ -20,7 +25,7 @@ public class GameLogic : MonoBehaviour
 
     public void SetSpriteForPlayerCharacter(int randomIndex)
     {
-        playerCharacter.GetComponent<PlayerCharacterSpriteRandomizer>().SetSpriteFromRandomIndex(randomIndex);
+        playerCharacter.GetComponent<SpriteRenderer>().sprite = spritesToRandomlySelectFrom[randomIndex];
     }
 
 }
