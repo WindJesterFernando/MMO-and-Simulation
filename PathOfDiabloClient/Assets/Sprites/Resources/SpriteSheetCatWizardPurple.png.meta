@@ -1,0 +1,455 @@
+fileFormatVersion: 2
+guid: 064a3081ebf434207828a67b1e9d990f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2678645735258781611
+    second: SpriteSheetCatWizardPurple_0
+  - first:
+      213: 6458217407794016765
+    second: SpriteSheetCatWizardPurple_1
+  - first:
+      213: 1758095886067018153
+    second: SpriteSheetCatWizardPurple_2
+  - first:
+      213: -5680652237640052627
+    second: SpriteSheetCatWizardPurple_3
+  - first:
+      213: 8296270539679963043
+    second: SpriteSheetCatWizardPurple_4
+  - first:
+      213: 8686459727388948790
+    second: SpriteSheetCatWizardPurple_5
+  - first:
+      213: -4575748383078161750
+    second: SpriteSheetCatWizardPurple_6
+  - first:
+      213: 7474783568278949682
+    second: SpriteSheetCatWizardPurple_7
+  - first:
+      213: -2708497143818696600
+    second: SpriteSheetCatWizardPurple_8
+  - first:
+      213: 2784002168421271859
+    second: SpriteSheetCatWizardPurple_9
+  - first:
+      213: -5127076507739928881
+    second: SpriteSheetCatWizardPurple_10
+  - first:
+      213: 3767601012039009966
+    second: SpriteSheetCatWizardPurple_11
+  - first:
+      213: -8672154078104049000
+    second: SpriteSheetCatWizardPurple_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 500
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SpriteSheetCatWizardPurple_0
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1919
+        width: 262
+        height: 262
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55809c655e983dad0800000000000000
+      internalID: -2678645735258781611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetCatWizardPurple_1
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1599
+        width: 252
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df17ec9e38230a950800000000000000
+      internalID: 6458217407794016765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetCatWizardPurple_2
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1279
+        width: 242
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a9a912c4e2066810800000000000000
+      internalID: 1758095886067018153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetCatWizardPurple_3
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 959
+        width: 262
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d60dfe223e44a21b0800000000000000
+      internalID: -5680652237640052627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetCatWizardPurple_4
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 959
+        width: 292
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a7992ea916422370800000000000000
+      internalID: 8296270539679963043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetCatWizardPurple_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 639
+        width: 261
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63931c669118c8870800000000000000
+      internalID: 8686459727388948790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetCatWizardPurple_6
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 639
+        width: 302
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa2ee05c61daf70c0800000000000000
+      internalID: -4575748383078161750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetCatWizardPurple_7
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 639
+        width: 312
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23f81306d04cbb760800000000000000
+      internalID: 7474783568278949682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetCatWizardPurple_8
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 639
+        width: 311
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 868c68ba23c796ad0800000000000000
+      internalID: -2708497143818696600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetCatWizardPurple_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 319
+        width: 301
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 339caaec833c2a620800000000000000
+      internalID: 2784002168421271859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetCatWizardPurple_10
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 319
+        width: 322
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc649e3a417f8d8b0800000000000000
+      internalID: -5127076507739928881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetCatWizardPurple_11
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 0
+        width: 262
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea6ccf9a825394430800000000000000
+      internalID: 3767601012039009966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetCatWizardPurple_12
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 0
+        width: 262
+        height: 251
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89a272120d156a780800000000000000
+      internalID: -8672154078104049000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SpriteSheetCatWizardPurple_0: -2678645735258781611
+      SpriteSheetCatWizardPurple_1: 6458217407794016765
+      SpriteSheetCatWizardPurple_10: -5127076507739928881
+      SpriteSheetCatWizardPurple_11: 3767601012039009966
+      SpriteSheetCatWizardPurple_12: -8672154078104049000
+      SpriteSheetCatWizardPurple_2: 1758095886067018153
+      SpriteSheetCatWizardPurple_3: -5680652237640052627
+      SpriteSheetCatWizardPurple_4: 8296270539679963043
+      SpriteSheetCatWizardPurple_5: 8686459727388948790
+      SpriteSheetCatWizardPurple_6: -4575748383078161750
+      SpriteSheetCatWizardPurple_7: 7474783568278949682
+      SpriteSheetCatWizardPurple_8: -2708497143818696600
+      SpriteSheetCatWizardPurple_9: 2784002168421271859
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

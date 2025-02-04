@@ -1,0 +1,481 @@
+fileFormatVersion: 2
+guid: 59a17c1d334bc454ab492770f7f1f8a6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5574325688505437308
+    second: SpriteSheetDogClericPurple_0
+  - first:
+      213: 1950296621350652711
+    second: SpriteSheetDogClericPurple_1
+  - first:
+      213: -8579410523107671199
+    second: SpriteSheetDogClericPurple_2
+  - first:
+      213: 6878263857292210331
+    second: SpriteSheetDogClericPurple_3
+  - first:
+      213: -8264140532392088427
+    second: SpriteSheetDogClericPurple_4
+  - first:
+      213: -5283554156927465367
+    second: SpriteSheetDogClericPurple_5
+  - first:
+      213: -2598334304723431051
+    second: SpriteSheetDogClericPurple_6
+  - first:
+      213: -373302672654690479
+    second: SpriteSheetDogClericPurple_7
+  - first:
+      213: 7382074419089349566
+    second: SpriteSheetDogClericPurple_8
+  - first:
+      213: 4327571731374824526
+    second: SpriteSheetDogClericPurple_9
+  - first:
+      213: 3030788650867815033
+    second: SpriteSheetDogClericPurple_10
+  - first:
+      213: -3942471099357697946
+    second: SpriteSheetDogClericPurple_11
+  - first:
+      213: -2175009938588686412
+    second: SpriteSheetDogClericPurple_12
+  - first:
+      213: -1016166053333327114
+    second: SpriteSheetDogClericPurple_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 500
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SpriteSheetDogClericPurple_0
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1919
+        width: 272
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4837c42025404a2b0800000000000000
+      internalID: -5574325688505437308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetDogClericPurple_1
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 1599
+        width: 252
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72b004aa178d01b10800000000000000
+      internalID: 1950296621350652711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetDogClericPurple_2
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 1279
+        width: 232
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1634bebb59fcfe880800000000000000
+      internalID: -8579410523107671199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetDogClericPurple_3
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 959
+        width: 272
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b907f4d1980847f50800000000000000
+      internalID: 6878263857292210331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetDogClericPurple_4
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 959
+        width: 292
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59cacd898ffdf4d80800000000000000
+      internalID: -8264140532392088427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetDogClericPurple_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 639
+        width: 231
+        height: 222
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 968ccccdc7b0da6b0800000000000000
+      internalID: -5283554156927465367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetDogClericPurple_6
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 639
+        width: 242
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5719f3767bcd0fbd0800000000000000
+      internalID: -2598334304723431051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetDogClericPurple_7
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 639
+        width: 302
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15796b27233c1daf0800000000000000
+      internalID: -373302672654690479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetDogClericPurple_8
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 639
+        width: 301
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebb915f7295627660800000000000000
+      internalID: 7382074419089349566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetDogClericPurple_9
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 319
+        width: 252
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4c5e9caf8f9e0c30800000000000000
+      internalID: 4327571731374824526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetDogClericPurple_10
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 319
+        width: 262
+        height: 222
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 972f24c58368f0a20800000000000000
+      internalID: 3030788650867815033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetDogClericPurple_11
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 319
+        width: 302
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6686a895c678949c0800000000000000
+      internalID: -3942471099357697946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetDogClericPurple_12
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 0
+        width: 272
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b72a7b0cffc0d1e0800000000000000
+      internalID: -2175009938588686412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetDogClericPurple_13
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 0
+        width: 232
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f2a14ebb5ad5e1f0800000000000000
+      internalID: -1016166053333327114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SpriteSheetDogClericPurple_0: -5574325688505437308
+      SpriteSheetDogClericPurple_1: 1950296621350652711
+      SpriteSheetDogClericPurple_10: 3030788650867815033
+      SpriteSheetDogClericPurple_11: -3942471099357697946
+      SpriteSheetDogClericPurple_12: -2175009938588686412
+      SpriteSheetDogClericPurple_13: -1016166053333327114
+      SpriteSheetDogClericPurple_2: -8579410523107671199
+      SpriteSheetDogClericPurple_3: 6878263857292210331
+      SpriteSheetDogClericPurple_4: -8264140532392088427
+      SpriteSheetDogClericPurple_5: -5283554156927465367
+      SpriteSheetDogClericPurple_6: -2598334304723431051
+      SpriteSheetDogClericPurple_7: -373302672654690479
+      SpriteSheetDogClericPurple_8: 7382074419089349566
+      SpriteSheetDogClericPurple_9: 4327571731374824526
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

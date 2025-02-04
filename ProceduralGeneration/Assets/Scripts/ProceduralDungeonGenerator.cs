@@ -227,7 +227,7 @@ public static partial class ProceduralDungeonGenerator
         }
 
 
-        AddRoom(RoomType.Boss, bossRoomCoord);
+        AddRoom(RoomType.Boss, bossRoomCoord); //>:)
         //furthestRoom.type = RoomType.Boss;
 
         // Coordinate bossRoomCoord = null;

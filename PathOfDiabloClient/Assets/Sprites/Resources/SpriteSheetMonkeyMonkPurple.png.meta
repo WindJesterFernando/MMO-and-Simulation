@@ -1,0 +1,403 @@
+fileFormatVersion: 2
+guid: bef79df37870243aabfcf34d3c14afe6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2751752864804977461
+    second: SpriteSheetMonkeyMonkPurple_0
+  - first:
+      213: -3511748154266386116
+    second: SpriteSheetMonkeyMonkPurple_1
+  - first:
+      213: -4393968158125233644
+    second: SpriteSheetMonkeyMonkPurple_2
+  - first:
+      213: 5765790181901770236
+    second: SpriteSheetMonkeyMonkPurple_3
+  - first:
+      213: 7076551962715841324
+    second: SpriteSheetMonkeyMonkPurple_4
+  - first:
+      213: -3824959193179420846
+    second: SpriteSheetMonkeyMonkPurple_5
+  - first:
+      213: -3593411519263922957
+    second: SpriteSheetMonkeyMonkPurple_6
+  - first:
+      213: 2593112256931867928
+    second: SpriteSheetMonkeyMonkPurple_7
+  - first:
+      213: 156498562680615663
+    second: SpriteSheetMonkeyMonkPurple_8
+  - first:
+      213: -7050803047314161509
+    second: SpriteSheetMonkeyMonkPurple_9
+  - first:
+      213: 7029231800843822653
+    second: SpriteSheetMonkeyMonkPurple_10
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 500
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SpriteSheetMonkeyMonkPurple_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 1919
+        width: 222
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc4c2af495fcfc9d0800000000000000
+      internalID: -2751752864804977461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetMonkeyMonkPurple_1
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 1599
+        width: 222
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c318154e8a3c34fc0800000000000000
+      internalID: -3511748154266386116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetMonkeyMonkPurple_2
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 1279
+        width: 192
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41a619c8d3d7503c0800000000000000
+      internalID: -4393968158125233644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetMonkeyMonkPurple_3
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 959
+        width: 222
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfd90b93f93340050800000000000000
+      internalID: 5765790181901770236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetMonkeyMonkPurple_4
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 959
+        width: 242
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2365445486f43260800000000000000
+      internalID: 7076551962715841324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetMonkeyMonkPurple_5
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 639
+        width: 222
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2570d2a11e30beac0800000000000000
+      internalID: -3824959193179420846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetMonkeyMonkPurple_6
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 639
+        width: 252
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f42a7e0343a12ec0800000000000000
+      internalID: -3593411519263922957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetMonkeyMonkPurple_7
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 319
+        width: 212
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81da229dbd59cf320800000000000000
+      internalID: 2593112256931867928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetMonkeyMonkPurple_8
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 319
+        width: 262
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe2ff641d9efb2200800000000000000
+      internalID: 156498562680615663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetMonkeyMonkPurple_9
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 0
+        width: 222
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9009973cf3862e90800000000000000
+      internalID: -7050803047314161509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetMonkeyMonkPurple_10
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 0
+        width: 222
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d36ec259419dc8160800000000000000
+      internalID: 7029231800843822653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SpriteSheetMonkeyMonkPurple_0: -2751752864804977461
+      SpriteSheetMonkeyMonkPurple_1: -3511748154266386116
+      SpriteSheetMonkeyMonkPurple_10: 7029231800843822653
+      SpriteSheetMonkeyMonkPurple_2: -4393968158125233644
+      SpriteSheetMonkeyMonkPurple_3: 5765790181901770236
+      SpriteSheetMonkeyMonkPurple_4: 7076551962715841324
+      SpriteSheetMonkeyMonkPurple_5: -3824959193179420846
+      SpriteSheetMonkeyMonkPurple_6: -3593411519263922957
+      SpriteSheetMonkeyMonkPurple_7: 2593112256931867928
+      SpriteSheetMonkeyMonkPurple_8: 156498562680615663
+      SpriteSheetMonkeyMonkPurple_9: -7050803047314161509
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,481 @@
+fileFormatVersion: 2
+guid: c38ec3dd902544cf5995a3103ccb1dd3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2527786679765055169
+    second: SpriteSheetArmadilloFighter_0
+  - first:
+      213: 417784174203116140
+    second: SpriteSheetArmadilloFighter_1
+  - first:
+      213: 7067970212696293422
+    second: SpriteSheetArmadilloFighter_2
+  - first:
+      213: 4552703734877337628
+    second: SpriteSheetArmadilloFighter_3
+  - first:
+      213: -2940468090766639318
+    second: SpriteSheetArmadilloFighter_4
+  - first:
+      213: -9038096768378273583
+    second: SpriteSheetArmadilloFighter_5
+  - first:
+      213: -6722534161964065311
+    second: SpriteSheetArmadilloFighter_6
+  - first:
+      213: -559387679481258832
+    second: SpriteSheetArmadilloFighter_7
+  - first:
+      213: 9206661973497465110
+    second: SpriteSheetArmadilloFighter_8
+  - first:
+      213: -3665307093875518649
+    second: SpriteSheetArmadilloFighter_9
+  - first:
+      213: -566632070236803664
+    second: SpriteSheetArmadilloFighter_10
+  - first:
+      213: 974063852048711323
+    second: SpriteSheetArmadilloFighter_11
+  - first:
+      213: -775494040551850503
+    second: SpriteSheetArmadilloFighter_12
+  - first:
+      213: -7305978579029976839
+    second: SpriteSheetArmadilloFighter_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 500
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SpriteSheetArmadilloFighter_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 1919
+        width: 312
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f39c3a4586f7becd0800000000000000
+      internalID: -2527786679765055169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetArmadilloFighter_1
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 1599
+        width: 312
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6a18203e744cc500800000000000000
+      internalID: 417784174203116140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetArmadilloFighter_2
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 1279
+        width: 252
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e200ec2f579761260800000000000000
+      internalID: 7067970212696293422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetArmadilloFighter_3
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 959
+        width: 262
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1835f4fce37e2f30800000000000000
+      internalID: 4552703734877337628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetArmadilloFighter_4
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 959
+        width: 262
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2fbb78c9db5137d0800000000000000
+      internalID: -2940468090766639318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetArmadilloFighter_5
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 639
+        width: 262
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d0053300ea329280800000000000000
+      internalID: -9038096768378273583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetArmadilloFighter_6
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 639
+        width: 312
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ed14b51cc2c4b2a0800000000000000
+      internalID: -6722534161964065311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetArmadilloFighter_7
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 639
+        width: 312
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bc1ac88ed7ac38f0800000000000000
+      internalID: -559387679481258832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetArmadilloFighter_8
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 639
+        width: 311
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 619c9613942a4cf70800000000000000
+      internalID: 9206661973497465110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetArmadilloFighter_9
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 319
+        width: 272
+        height: 222
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74394d42e96322dc0800000000000000
+      internalID: -3665307093875518649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetArmadilloFighter_10
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 319
+        width: 232
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bde03f522be228f0800000000000000
+      internalID: -566632070236803664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetArmadilloFighter_11
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 319
+        width: 202
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9e79e1a9e1948d00800000000000000
+      internalID: 974063852048711323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetArmadilloFighter_12
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 0
+        width: 312
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fd79736744ec35f0800000000000000
+      internalID: -775494040551850503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetArmadilloFighter_13
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 0
+        width: 312
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f81e4ce033fb9a90800000000000000
+      internalID: -7305978579029976839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SpriteSheetArmadilloFighter_0: -2527786679765055169
+      SpriteSheetArmadilloFighter_1: 417784174203116140
+      SpriteSheetArmadilloFighter_10: -566632070236803664
+      SpriteSheetArmadilloFighter_11: 974063852048711323
+      SpriteSheetArmadilloFighter_12: -775494040551850503
+      SpriteSheetArmadilloFighter_13: -7305978579029976839
+      SpriteSheetArmadilloFighter_2: 7067970212696293422
+      SpriteSheetArmadilloFighter_3: 4552703734877337628
+      SpriteSheetArmadilloFighter_4: -2940468090766639318
+      SpriteSheetArmadilloFighter_5: -9038096768378273583
+      SpriteSheetArmadilloFighter_6: -6722534161964065311
+      SpriteSheetArmadilloFighter_7: -559387679481258832
+      SpriteSheetArmadilloFighter_8: 9206661973497465110
+      SpriteSheetArmadilloFighter_9: -3665307093875518649
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

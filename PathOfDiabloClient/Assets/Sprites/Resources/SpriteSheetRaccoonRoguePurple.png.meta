@@ -1,0 +1,455 @@
+fileFormatVersion: 2
+guid: e7f835fe2d23547e1ac174ba70069ba5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7932702069831328442
+    second: SpriteSheetRaccoonRoguePurple_0
+  - first:
+      213: -7276341466694877440
+    second: SpriteSheetRaccoonRoguePurple_1
+  - first:
+      213: 4861543191700163997
+    second: SpriteSheetRaccoonRoguePurple_2
+  - first:
+      213: 4715218122805647982
+    second: SpriteSheetRaccoonRoguePurple_3
+  - first:
+      213: 4983074206720808874
+    second: SpriteSheetRaccoonRoguePurple_4
+  - first:
+      213: 7410273533301821987
+    second: SpriteSheetRaccoonRoguePurple_5
+  - first:
+      213: 3238388046429369655
+    second: SpriteSheetRaccoonRoguePurple_6
+  - first:
+      213: 4566297225462849131
+    second: SpriteSheetRaccoonRoguePurple_7
+  - first:
+      213: -1566471152276388233
+    second: SpriteSheetRaccoonRoguePurple_8
+  - first:
+      213: 3306177594115092609
+    second: SpriteSheetRaccoonRoguePurple_9
+  - first:
+      213: 288510317916424583
+    second: SpriteSheetRaccoonRoguePurple_10
+  - first:
+      213: -3979924172450470521
+    second: SpriteSheetRaccoonRoguePurple_11
+  - first:
+      213: -8188322166840442936
+    second: SpriteSheetRaccoonRoguePurple_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 500
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SpriteSheetRaccoonRoguePurple_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 1919
+        width: 282
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab26d45d08e961e60800000000000000
+      internalID: 7932702069831328442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetRaccoonRoguePurple_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1599
+        width: 291
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00ff43ddcfd350b90800000000000000
+      internalID: -7276341466694877440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetRaccoonRoguePurple_2
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 1279
+        width: 222
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9dc18976cba77340800000000000000
+      internalID: 4861543191700163997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetRaccoonRoguePurple_3
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 959
+        width: 282
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6a905086e1df6140800000000000000
+      internalID: 4715218122805647982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetRaccoonRoguePurple_4
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 959
+        width: 282
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa7510de69f672540800000000000000
+      internalID: 4983074206720808874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetRaccoonRoguePurple_5
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 639
+        width: 272
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3221fe8648496d660800000000000000
+      internalID: 7410273533301821987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetRaccoonRoguePurple_6
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 639
+        width: 242
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7353b4045c011fc20800000000000000
+      internalID: 3238388046429369655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetRaccoonRoguePurple_7
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 639
+        width: 302
+        height: 222
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6e909e122fbe5f30800000000000000
+      internalID: 4566297225462849131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetRaccoonRoguePurple_8
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 319
+        width: 282
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7764ba959c6c24ae0800000000000000
+      internalID: -1566471152276388233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetRaccoonRoguePurple_9
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 329
+        width: 262
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 180f5954107e1ed20800000000000000
+      internalID: 3306177594115092609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetRaccoonRoguePurple_10
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 319
+        width: 292
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78981750b9ef00400800000000000000
+      internalID: 288510317916424583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetRaccoonRoguePurple_11
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 0
+        width: 282
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 785691c3d0874c8c0800000000000000
+      internalID: -3979924172450470521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetRaccoonRoguePurple_12
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 0
+        width: 282
+        height: 281
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cfb4037f5c3d5e80800000000000000
+      internalID: -8188322166840442936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SpriteSheetRaccoonRoguePurple_0: 7932702069831328442
+      SpriteSheetRaccoonRoguePurple_1: -7276341466694877440
+      SpriteSheetRaccoonRoguePurple_10: 288510317916424583
+      SpriteSheetRaccoonRoguePurple_11: -3979924172450470521
+      SpriteSheetRaccoonRoguePurple_12: -8188322166840442936
+      SpriteSheetRaccoonRoguePurple_2: 4861543191700163997
+      SpriteSheetRaccoonRoguePurple_3: 4715218122805647982
+      SpriteSheetRaccoonRoguePurple_4: 4983074206720808874
+      SpriteSheetRaccoonRoguePurple_5: 7410273533301821987
+      SpriteSheetRaccoonRoguePurple_6: 3238388046429369655
+      SpriteSheetRaccoonRoguePurple_7: 4566297225462849131
+      SpriteSheetRaccoonRoguePurple_8: -1566471152276388233
+      SpriteSheetRaccoonRoguePurple_9: 3306177594115092609
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
