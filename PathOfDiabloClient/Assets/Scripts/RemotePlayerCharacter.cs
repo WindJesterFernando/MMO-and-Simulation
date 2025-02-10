@@ -18,14 +18,14 @@ public class RemotePlayerCharacter : MonoBehaviour
             lerpMoveTimeElapsed += Time.deltaTime;
             float timeCompletePercent = lerpMoveTimeElapsed / lerpMoveTimeUntilComplete;
             transform.position = Vector3.Lerp(lerpMoveStart, lerpMoveEnd, timeCompletePercent);
-
         }
     }
 
     public void ReceiveLerpMoveData(float lerpMoveStartX, float lerpMoveStartY, float lerpMoveEndX, float lerpMoveEndY, float lerpMoveTimeUntilComplete)
     {
-        lerpMoveStart = new Vector3(lerpMoveStartX, lerpMoveStartY, 0);
-        lerpMoveEnd = new Vector3(lerpMoveEndX, lerpMoveEndY, 0);
+        float cameraDistanceInZ = Mathf.Abs(Camera.main.transform.position.z);
+        lerpMoveStart = new Vector3(lerpMoveStartX, lerpMoveStartY, cameraDistanceInZ);
+        lerpMoveEnd = new Vector3(lerpMoveEndX, lerpMoveEndY, cameraDistanceInZ);
         this.lerpMoveTimeUntilComplete = lerpMoveTimeUntilComplete;
         lerpMoveTimeElapsed = 0;
     }
