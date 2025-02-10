@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8583378025478673618}
   - component: {fileID: 405682985209818844}
-  - component: {fileID: 1514437530872525023}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -77,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9028629554037727706, guid: 19d1787628d7846e8a9e780dfdbb1543, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: a61a39708e3ea438ea93bf7cdb4ffb88, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -88,15 +87,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1514437530872525023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7480729352775404859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 956a847e8853840d7b987b36ce07d348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

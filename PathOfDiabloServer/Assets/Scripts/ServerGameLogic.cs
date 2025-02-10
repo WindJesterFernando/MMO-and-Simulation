@@ -54,6 +54,19 @@ public class ServerGameLogic : MonoBehaviour
         idToPlayerDictionary.Remove(clientID);
         Destroy(player.playerGameObject);
     }
+
+    public void ProcessPlayerLerpMove(float lerpMoveStartX, float lerpMoveStartY, float lerpMoveEndX, float lerpMoveEndY, float lerpMoveTimeUntilComplete, int playerID)
+    {
+        string netMsg = Utilities.Concatenate((int)ServerToClientSignifiers.RemotePlayerLerpMove, lerpMoveStartX.ToString(), lerpMoveStartY.ToString(), lerpMoveEndX.ToString(), lerpMoveEndY.ToString(), lerpMoveTimeUntilComplete.ToString(), playerID.ToString());
+
+        foreach (int id in idToPlayerDictionary.Keys)
+        {
+            if (id != playerID)
+            {
+                NetworkServerProcessing.SendMessageToClient(netMsg, id);
+            }
+        }
+    }
 }
 
 public class ClientPlayerCharacterData

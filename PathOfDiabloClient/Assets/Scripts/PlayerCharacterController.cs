@@ -35,6 +35,14 @@ public class PlayerCharacterController : MonoBehaviour
             lerpMoveTimeUntilComplete = dist / moveSpeed;
 
             lerpMoveTimeElapsed = 0;
+
+            string netMsg = Utilities.Concatenate((int)ClientToServerSignifiers.LocalPlayerLerpMove, 
+                mousePos.x.ToString(), 
+                mousePos.y.ToString(), 
+                lerpMoveEnd.x.ToString(), 
+                lerpMoveEnd.y.ToString(), 
+                lerpMoveTimeUntilComplete.ToString());
+            NetworkClientProcessing.SendMessageToServer(netMsg);
         }
 
         #endregion

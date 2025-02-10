@@ -17,7 +17,11 @@ static public class NetworkClientProcessing
         {
             clientGameLogic.InstantiatePlayerCharacter(int.Parse(csv[1]));
         }
-        else if (signifier == ServerToClientSignifiers.OtherConnectedClientData) 
+        else if (signifier == ServerToClientSignifiers.OtherConnectedClientData)
+        {
+            clientGameLogic.InstantiateOtherPlayerCharacter(int.Parse(csv[1]), int.Parse(csv[2]));
+        }
+        else if (signifier == ServerToClientSignifiers.RemotePlayerLerpMove)
         {
             clientGameLogic.InstantiateOtherPlayerCharacter(int.Parse(csv[1]), int.Parse(csv[2]));
         }
@@ -30,7 +34,7 @@ static public class NetworkClientProcessing
 
     }
 
-    static public void SendMessageToServer(string msg, TransportPipeline pipeline)
+    static public void SendMessageToServer(string msg, TransportPipeline pipeline = TransportPipeline.ReliableAndInOrder)
     {
         networkClient.SendMessageToServer(msg, pipeline);
     }
@@ -86,12 +90,14 @@ static public class NetworkClientProcessing
 public enum ClientToServerSignifiers
 {
     asd = 1,
+    LocalPlayerLerpMove = 2,
 }
 
 public enum ServerToClientSignifiers
 {
     RandomizedSpriteIndexForClient = 1,
     OtherConnectedClientData = 2,
+    RemotePlayerLerpMove = 3,
 }
 
 #endregion
