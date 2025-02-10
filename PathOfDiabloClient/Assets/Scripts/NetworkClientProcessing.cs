@@ -23,7 +23,7 @@ static public class NetworkClientProcessing
         }
         else if (signifier == ServerToClientSignifiers.RemotePlayerLerpMove)
         {
-            clientGameLogic.InstantiateOtherPlayerCharacter(int.Parse(csv[1]), int.Parse(csv[2]));
+            clientGameLogic.LerpMoveRemotePlayer(float.Parse(csv[1]), float.Parse(csv[2]), float.Parse(csv[3]), float.Parse(csv[4]), float.Parse(csv[5]), int.Parse(csv[6]));
         }
         // else if (signifier == ServerToClientSignifiers.asd)
         // {
