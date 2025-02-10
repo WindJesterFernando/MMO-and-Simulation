@@ -11,7 +11,7 @@ static public class NetworkServerProcessing
         Debug.Log("Network msg received =  " + msg + ", from connection id = " + clientConnectionID + ", from pipeline = " + pipeline);
 
         string[] csv = msg.Split(',');
-        int signifier = int.Parse(csv[0]);
+        ClientToServerSignifiers signifier = (ClientToServerSignifiers)int.Parse(csv[0]);
 
         if (signifier == ClientToServerSignifiers.asd)
         {
@@ -71,15 +71,15 @@ static public class NetworkServerProcessing
 }
 
 #region Protocol Signifiers
-static public class ClientToServerSignifiers
+public enum ClientToServerSignifiers
 {
-    public const int asd = 1;
+    asd = 1,
 }
 
-static public class ServerToClientSignifiers
+public enum ServerToClientSignifiers
 {
-    public const int RandomizedSpriteIndexForClient = 1;
-    public const int OtherConnectedClientData = 2;
+    RandomizedSpriteIndexForClient = 1,
+    OtherConnectedClientData = 2,
 }
 
 #endregion

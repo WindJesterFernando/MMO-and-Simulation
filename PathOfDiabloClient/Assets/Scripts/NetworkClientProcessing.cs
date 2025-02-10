@@ -11,11 +11,11 @@ static public class NetworkClientProcessing
         Debug.Log("Network msg received =  " + msg + ", from pipeline = " + pipeline);
 
         string[] csv = msg.Split(',');
-        int signifier = int.Parse(csv[0]);
+        ServerToClientSignifiers signifier = (ServerToClientSignifiers)int.Parse(csv[0]);
 
         if (signifier == ServerToClientSignifiers.RandomizedSpriteIndexForClient)
         {
-            clientGameLogic.SetSpriteForPlayerCharacter(int.Parse(csv[1]));
+            clientGameLogic.InstantiatePlayerCharacter(int.Parse(csv[1]));
         }
         else if (signifier == ServerToClientSignifiers.OtherConnectedClientData) 
         {
@@ -83,15 +83,15 @@ static public class NetworkClientProcessing
 }
 
 #region Protocol Signifiers
-static public class ClientToServerSignifiers
+public enum ClientToServerSignifiers
 {
-    public const int asd = 1;
+    asd = 1,
 }
 
-static public class ServerToClientSignifiers
+public enum ServerToClientSignifiers
 {
-    public const int RandomizedSpriteIndexForClient = 1;
-    public const int OtherConnectedClientData = 2;
+    RandomizedSpriteIndexForClient = 1,
+    OtherConnectedClientData = 2,
 }
 
 #endregion

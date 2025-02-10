@@ -15,6 +15,9 @@ public class PlayerCharacterController : MonoBehaviour
 
     void Update()
     {
+
+        #region On Mouse Click, Setup Lerp Movement
+
         bool mouseClick = Input.GetMouseButton(0);
 
         if (mouseClick)
@@ -22,7 +25,8 @@ public class PlayerCharacterController : MonoBehaviour
             lerpMoveStart = transform.position;
 
             Vector2 mousePos = Input.mousePosition;
-            lerpMoveEnd = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 10));//Camera.main.nearClipPlane));
+            float cameraDistanceInZ = Mathf.Abs(Camera.main.transform.position.z);
+            lerpMoveEnd = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cameraDistanceInZ));
 
             float xDif = Mathf.Abs(lerpMoveStart.x - lerpMoveEnd.x);
             float yDif = Mathf.Abs(lerpMoveStart.y - lerpMoveEnd.y);
@@ -30,19 +34,22 @@ public class PlayerCharacterController : MonoBehaviour
 
             lerpMoveTimeUntilComplete = dist / moveSpeed;
 
-            //transform.position = moveTo;
             lerpMoveTimeElapsed = 0;
         }
+
+        #endregion
+
+        #region Lerp Move Character
 
         if(transform.position != lerpMoveEnd)
         {
             lerpMoveTimeElapsed += Time.deltaTime;
             float timeCompletePercent = lerpMoveTimeElapsed / lerpMoveTimeUntilComplete;
-            //Mathf.Lerp(lerpMoveStart, lerpMoveEnd, lerpMoveTimer);
             transform.position = Vector3.Lerp(lerpMoveStart, lerpMoveEnd, timeCompletePercent);
 
         }
 
+        #endregion
 
     }
 }

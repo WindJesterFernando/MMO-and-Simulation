@@ -5,11 +5,13 @@ using UnityEngine;
 public class ClientGameLogic : MonoBehaviour
 {
 
-    [SerializeField]
+    // [SerializeField]
     GameObject playerCharacter;
 
     [SerializeField]
     List<Sprite> spritesToRandomlySelectFrom;
+
+    
 
 
     void Start()
@@ -23,15 +25,17 @@ public class ClientGameLogic : MonoBehaviour
 
     }
 
-    public void SetSpriteForPlayerCharacter(int randomIndex)
+    public void InstantiatePlayerCharacter(int spriteIndex)
     {
-        playerCharacter.GetComponent<SpriteRenderer>().sprite = spritesToRandomlySelectFrom[randomIndex];
+        playerCharacter = Instantiate(Resources.Load<GameObject>("PlayerCharacter"));
+        playerCharacter.GetComponent<SpriteRenderer>().sprite = spritesToRandomlySelectFrom[spriteIndex];
     }
 
     public void InstantiateOtherPlayerCharacter(int otherPlayerID, int otherSpriteIndex) 
     {
-        GameObject otherPlayerCharacter = Instantiate(playerCharacter);
-        otherPlayerCharacter.GetComponent<SpriteRenderer>().sprite = spritesToRandomlySelectFrom[otherSpriteIndex];
+
+        GameObject playerCharacter =  Instantiate(Resources.Load<GameObject>("PlayerCharacter"));
+        playerCharacter.GetComponent<SpriteRenderer>().sprite = spritesToRandomlySelectFrom[otherSpriteIndex];
     }
 
 }

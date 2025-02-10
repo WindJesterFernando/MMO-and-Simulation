@@ -28,20 +28,27 @@ public class ServerGameLogic : MonoBehaviour
         ClientPlayerCharacterData pData = new ClientPlayerCharacterData(clientID, randSprInd, p);
         idToPlayerDictionary.Add(clientID, pData);
 
-        NetworkServerProcessing.SendMessageToClient(ServerToClientSignifiers.RandomizedSpriteIndexForClient + "," + randSprInd, clientID);
+        string netMsg = Utilities.Concatenate((int)ServerToClientSignifiers.RandomizedSpriteIndexForClient, randSprInd.ToString());
+        NetworkServerProcessing.SendMessageToClient(netMsg, clientID);
 
-        
-        foreach(ClientPlayerCharacterData player in idToPlayerDictionary.Values)
+        //NetworkServerProcessing.SendMessageToClient(ServerToClientSignifiers.RandomizedSpriteIndexForClient + "," + randSprInd, clientID);
+
+
+        foreach (ClientPlayerCharacterData player in idToPlayerDictionary.Values)
         {
             if (player.id != clientID)
             {
-                NetworkServerProcessing.SendMessageToClient(ServerToClientSignifiers.OtherConnectedClientData + "," + clientID + "," + randSprInd, player.id);
+                netMsg = Utilities.Concatenate((int)ServerToClientSignifiers.OtherConnectedClientData, clientID.ToString(), randSprInd.ToString());
+                NetworkServerProcessing.SendMessageToClient(netMsg, player.id);
+
+                netMsg = Utilities.Concatenate((int)ServerToClientSignifiers.OtherConnectedClientData, player.id.ToString(), player.spriteIndex.ToString());
+                NetworkServerProcessing.SendMessageToClient(netMsg, clientID);
             }
         }
 
     }
 
-    public void RemovePlayer(int clientID) 
+    public void RemovePlayer(int clientID)
     {
         ClientPlayerCharacterData player = idToPlayerDictionary[clientID];
         idToPlayerDictionary.Remove(clientID);
