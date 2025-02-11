@@ -31,7 +31,7 @@ public class NetworkServer : MonoBehaviour
             //NetworkConfigParameter ncp = new NetworkConfigParameter();
             //ncp.disconnectTimeoutMS = 5000;
             //networkDriver = NetworkDriver.Create(new NetworkDataStreamParameter(), ncp);
-            
+
             networkDriver = NetworkDriver.Create();
             reliableAndInOrderPipeline = networkDriver.CreatePipeline(typeof(FragmentationPipelineStage), typeof(ReliableSequencedPipelineStage));
             nonReliableNotInOrderedPipeline = networkDriver.CreatePipeline(typeof(FragmentationPipelineStage));
@@ -163,7 +163,7 @@ public class NetworkServer : MonoBehaviour
     public void SendMessageToClient(string msg, int connectionID, TransportPipeline pipeline)
     {
         NetworkPipeline networkPipeline = reliableAndInOrderPipeline;
-        if(pipeline == TransportPipeline.NonReliableNotInOrderedPipeline)
+        if (pipeline == TransportPipeline.NonReliableNotInOrderedPipeline)
             networkPipeline = nonReliableNotInOrderedPipeline;
 
         byte[] msgAsByteArray = Encoding.Unicode.GetBytes(msg);
@@ -176,6 +176,22 @@ public class NetworkServer : MonoBehaviour
         networkDriver.EndSend(streamWriter);
 
         buffer.Dispose();
+    }
+
+    public void DisconnectClient(int id)
+    {
+        NetworkConnection nc = idToConnectionLookup[id];
+        NetworkServerProcessing.DisconnectionEvent(id);
+        connectionToIDLookup.Remove(nc);
+        idToConnectionLookup.Remove(id);
+        for (int i = 0; i < networkConnections.Length; i++)
+        {
+            if (networkConnections[i] == nc)
+            {
+                //networkConnections[i] = default(NetworkConnection);
+                nc.Disconnect(networkDriver);
+            }
+        }
     }
 
 }

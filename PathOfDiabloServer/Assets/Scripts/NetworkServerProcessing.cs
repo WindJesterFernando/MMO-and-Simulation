@@ -10,6 +10,8 @@ static public class NetworkServerProcessing
     {
         Debug.Log("Network msg received =  " + msg + ", from connection id = " + clientConnectionID + ", from pipeline = " + pipeline);
 
+        serverGameLogic.KeepClientConnectionAlive(clientConnectionID);
+
         string[] csv = msg.Split(',');
         ClientToServerSignifiers signifier = (ClientToServerSignifiers)int.Parse(csv[0]);
 
@@ -57,6 +59,8 @@ static public class NetworkServerProcessing
     static NetworkServer networkServer;
     static ServerGameLogic serverGameLogic;
 
+    public const float TimeOutReset = 5;
+
     static public void SetNetworkServer(NetworkServer NetworkServer)
     {
         networkServer = NetworkServer;
@@ -78,7 +82,6 @@ public enum ClientToServerSignifiers
 {
     asd = 1,
     LocalPlayerLerpMove = 2,
-
     Ping = 3,
 }
 
@@ -88,7 +91,6 @@ public enum ServerToClientSignifiers
     NewPlayerConnectedData = 2,
     ExistingPlayerConnectionData = 3,
     RemotePlayerLerpMove = 4,
-
     Pong = 5,
 
 

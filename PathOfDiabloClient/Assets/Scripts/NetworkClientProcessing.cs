@@ -56,6 +56,7 @@ static public class NetworkClientProcessing
     static public void ConnectionEvent()
     {
         Debug.Log("Network Connection Event!");
+        clientGameLogic.StartPingTimer();
     }
     static public void DisconnectionEvent()
     {

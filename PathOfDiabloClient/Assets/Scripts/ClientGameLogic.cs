@@ -12,10 +12,10 @@ public class ClientGameLogic : MonoBehaviour
     Dictionary<int, GameObject> remotePlayerDictionary;
 
     float pingTimer;
-    float nextPingTimer;
+    float nextPingTimer = TimeUntilNextPing;
     const float TimeUntilNextPing = 1;
 
-
+    bool pingTimerHasBeenStarted;
 
     void Start()
     {
@@ -26,9 +26,9 @@ public class ClientGameLogic : MonoBehaviour
 
     void Update()
     {
-        if (NetworkClientProcessing.IsConnectedToServer())
+        if (pingTimerHasBeenStarted)//NetworkClientProcessing.IsConnectedToServer())
         {
-            if (nextPingTimer <= 0)//Input.GetKeyDown(KeyCode.P))
+            if (nextPingTimer <= 0)
             {
                 NetworkClientProcessing.SendMessageToServer(((int)ClientToServerSignifiers.Ping).ToString());
                 pingTimer = 0;
@@ -69,6 +69,11 @@ public class ClientGameLogic : MonoBehaviour
     public void PrintPingTimer()
     {
         Debug.Log("Ping return time == " + (pingTimer * 1000) + " ms");
+    }
+
+    public void StartPingTimer()
+    {
+        pingTimerHasBeenStarted = true;
     }
 
 }

@@ -18,6 +18,35 @@ public class ServerGameLogic : MonoBehaviour
     void Update()
     {
 
+        // if(Input.GetKeyDown(KeyCode.D))
+        // {
+            
+            
+        // }
+
+        LinkedList<int> removeMes = new LinkedList<int>();
+        foreach (ClientPlayerCharacterData player in idToPlayerDictionary.Values)
+        {
+            player.timeOut -= Time.deltaTime;
+
+            if(player.timeOut <= 0)
+            {
+                removeMes.AddLast(player.id);
+            }
+        }
+
+        foreach (int me in removeMes)
+        {
+            NetworkServerProcessing.GetNetworkServer().DisconnectClient(me);
+            // todo:
+            // disconnect
+            // remove from idToPlayer dictionary
+            // remove player from scene (server)
+            // possibly some shit in NetworkServer class (?)
+            //      related to NetworkEvent.Type.Disconnect?
+            // send message to clients that player disconnected
+            //      when received on client, remove from scene on client too
+        }
     }
 
     public void CreatePlayerPrefab(int clientID)
@@ -38,8 +67,8 @@ public class ServerGameLogic : MonoBehaviour
         {
             if (player.id != clientID)
             {
-                netMsg = Utilities.Concatenate((int)ServerToClientSignifiers.NewPlayerConnectedData, 
-                                                clientID.ToString(), 
+                netMsg = Utilities.Concatenate((int)ServerToClientSignifiers.NewPlayerConnectedData,
+                                                clientID.ToString(),
                                                 randSprInd.ToString());
                 NetworkServerProcessing.SendMessageToClient(netMsg, player.id);
             }
@@ -60,8 +89,8 @@ public class ServerGameLogic : MonoBehaviour
             }
         }
 
-    //         NewPlayerConnectedData = 2,
-    // ExistingPlayerConnectionData = 3,
+        //         NewPlayerConnectedData = 2,
+        // ExistingPlayerConnectionData = 3,
 
     }
 
@@ -87,6 +116,11 @@ public class ServerGameLogic : MonoBehaviour
             }
         }
     }
+
+    public void KeepClientConnectionAlive(int clientConnectionID)
+    {
+        idToPlayerDictionary[clientConnectionID].timeOut = NetworkServerProcessing.TimeOutReset;
+    }
 }
 
 public class ClientPlayerCharacterData
@@ -95,10 +129,15 @@ public class ClientPlayerCharacterData
     public int spriteIndex;
     public GameObject playerGameObject;
 
+    public float timeOut = NetworkServerProcessing.TimeOutReset;
+
     public ClientPlayerCharacterData(int id, int spriteIndex, GameObject playerGameObject)
     {
         this.id = id;
         this.spriteIndex = spriteIndex;
         this.playerGameObject = playerGameObject;
     }
+
+
+
 }
