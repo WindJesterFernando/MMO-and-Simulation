@@ -58,7 +58,7 @@ public class LocalPlayerController : AbstractPlayerController
 
     public bool IsMousePositionGreaterThanThreshold(Vector2 mousePos, Vector2 lastMousePos)
     {
-        const float Threshold = 0.01f;
+        const float Threshold = 0.005f;
         float dist = Utilities.GetDistanceBetween(mousePos, lastMousePos);
 
         if(dist > Threshold)

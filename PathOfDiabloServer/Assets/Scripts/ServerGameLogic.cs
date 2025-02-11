@@ -38,13 +38,30 @@ public class ServerGameLogic : MonoBehaviour
         {
             if (player.id != clientID)
             {
-                netMsg = Utilities.Concatenate((int)ServerToClientSignifiers.OtherConnectedClientData, clientID.ToString(), randSprInd.ToString());
+                netMsg = Utilities.Concatenate((int)ServerToClientSignifiers.NewPlayerConnectedData, 
+                                                clientID.ToString(), 
+                                                randSprInd.ToString());
                 NetworkServerProcessing.SendMessageToClient(netMsg, player.id);
+            }
+        }
 
-                netMsg = Utilities.Concatenate((int)ServerToClientSignifiers.OtherConnectedClientData, player.id.ToString(), player.spriteIndex.ToString());
+        foreach (ClientPlayerCharacterData player in idToPlayerDictionary.Values)
+        {
+            if (player.id != clientID)
+            {
+                float xPos = player.playerGameObject.transform.position.x;
+                float yPos = player.playerGameObject.transform.position.y;
+                netMsg = Utilities.Concatenate((int)ServerToClientSignifiers.ExistingPlayerConnectionData,
+                                                player.id.ToString(),
+                                                player.spriteIndex.ToString(),
+                                                xPos.ToString(),
+                                                yPos.ToString());
                 NetworkServerProcessing.SendMessageToClient(netMsg, clientID);
             }
         }
+
+    //         NewPlayerConnectedData = 2,
+    // ExistingPlayerConnectionData = 3,
 
     }
 
@@ -57,6 +74,9 @@ public class ServerGameLogic : MonoBehaviour
 
     public void ProcessPlayerLerpMove(float lerpMoveStartX, float lerpMoveStartY, float lerpMoveEndX, float lerpMoveEndY, float lerpMoveTimeUntilComplete, int playerID)
     {
+        // todo set player position (on server) to destination
+        idToPlayerDictionary[playerID].playerGameObject.transform.position = new Vector3(lerpMoveEndX, lerpMoveEndY, 10);
+
         string netMsg = Utilities.Concatenate((int)ServerToClientSignifiers.RemotePlayerLerpMove, lerpMoveStartX.ToString(), lerpMoveStartY.ToString(), lerpMoveEndX.ToString(), lerpMoveEndY.ToString(), lerpMoveTimeUntilComplete.ToString(), playerID.ToString());
 
         foreach (int id in idToPlayerDictionary.Keys)

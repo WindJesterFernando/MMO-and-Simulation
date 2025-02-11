@@ -17,14 +17,27 @@ static public class NetworkClientProcessing
         {
             clientGameLogic.InstantiateLocalPlayer(int.Parse(csv[1]));
         }
-        else if (signifier == ServerToClientSignifiers.OtherConnectedClientData)
+        else if (signifier == ServerToClientSignifiers.NewPlayerConnectedData)
         {
             clientGameLogic.InstantiateRemotePlayer(int.Parse(csv[1]), int.Parse(csv[2]));
+        }
+        else if(signifier == ServerToClientSignifiers.ExistingPlayerConnectionData)
+        {
+            clientGameLogic.InstantiateRemotePlayer(int.Parse(csv[1]), int.Parse(csv[2]), float.Parse(csv[3]), float.Parse(csv[4]));
         }
         else if (signifier == ServerToClientSignifiers.RemotePlayerLerpMove)
         {
             clientGameLogic.LerpMoveRemotePlayer(float.Parse(csv[1]), float.Parse(csv[2]), float.Parse(csv[3]), float.Parse(csv[4]), float.Parse(csv[5]), int.Parse(csv[6]));
         }
+
+// public enum ServerToClientSignifiers
+// {
+//     RandomizedSpriteIndexForClient = 1,
+//     NewPlayerConnectedData = 2,
+//     ExistingPlayerConnectionData = 3,
+//     RemotePlayerLerpMove = 4,
+// }
+
         // else if (signifier == ServerToClientSignifiers.asd)
         // { wawa we wa >:) King of the castle
         //   high five
@@ -97,8 +110,9 @@ public enum ClientToServerSignifiers
 public enum ServerToClientSignifiers
 {
     RandomizedSpriteIndexForClient = 1,
-    OtherConnectedClientData = 2,
-    RemotePlayerLerpMove = 3,
+    NewPlayerConnectedData = 2,
+    ExistingPlayerConnectionData = 3,
+    RemotePlayerLerpMove = 4,
 }
 
 #endregion

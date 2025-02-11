@@ -79,8 +79,9 @@ public enum ClientToServerSignifiers
 public enum ServerToClientSignifiers
 {
     RandomizedSpriteIndexForClient = 1,
-    OtherConnectedClientData = 2,
-    RemotePlayerLerpMove = 3,
+    NewPlayerConnectedData = 2,
+    ExistingPlayerConnectionData = 3,
+    RemotePlayerLerpMove = 4,
 }
 
 #endregion
