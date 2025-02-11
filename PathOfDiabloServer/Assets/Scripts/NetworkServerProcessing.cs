@@ -59,7 +59,7 @@ static public class NetworkServerProcessing
     static NetworkServer networkServer;
     static ServerGameLogic serverGameLogic;
 
-    public const float TimeOutReset = 50;
+    public const float TimeOutReset = 5;
 
     static public void SetNetworkServer(NetworkServer NetworkServer)
     {

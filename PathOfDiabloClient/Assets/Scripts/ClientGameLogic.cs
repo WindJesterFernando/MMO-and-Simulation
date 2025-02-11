@@ -68,7 +68,7 @@ public class ClientGameLogic : MonoBehaviour
 
     public void PrintPingTimer()
     {
-        Debug.Log("Ping return time == " + (pingTimer * 1000) + " ms");
+        //Debug.Log("Ping return time == " + (pingTimer * 1000) + " ms");
     }
 
     public void StartPingTimer()
