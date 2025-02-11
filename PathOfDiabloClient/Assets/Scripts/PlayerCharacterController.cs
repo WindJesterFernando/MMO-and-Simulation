@@ -24,7 +24,7 @@ public class PlayerCharacterController : AbstractPlayerController
         {
             Vector2 mousePos = Input.mousePosition;
 
-            if (lastMouseDownPosition != mousePos)
+            if (IsMousePositionGreaterThanThreshold(mousePos, lastMouseDownPosition))
             {
                 lerpMoveStart = transform.position;
 
@@ -61,4 +61,19 @@ public class PlayerCharacterController : AbstractPlayerController
 
         #endregion
     }
+
+    public bool IsMousePositionGreaterThanThreshold(Vector2 mousePos, Vector2 lastMousePos)
+    {
+        const float Threshold = 0.01f;
+
+        float xDif = Mathf.Abs(mousePos.x - lastMousePos.x);
+        float yDif = Mathf.Abs(mousePos.y - lastMousePos.y);
+        float dist = Mathf.Sqrt(xDif * xDif + yDif * yDif);
+
+        if(dist > Threshold)
+            return true;
+        else 
+            return false;
+    }
+
 }
