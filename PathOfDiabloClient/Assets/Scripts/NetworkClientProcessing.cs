@@ -15,11 +15,11 @@ static public class NetworkClientProcessing
 
         if (signifier == ServerToClientSignifiers.RandomizedSpriteIndexForClient)
         {
-            clientGameLogic.InstantiatePlayerCharacter(int.Parse(csv[1]));
+            clientGameLogic.InstantiateLocalPlayer(int.Parse(csv[1]));
         }
         else if (signifier == ServerToClientSignifiers.OtherConnectedClientData)
         {
-            clientGameLogic.InstantiateOtherPlayerCharacter(int.Parse(csv[1]), int.Parse(csv[2]));
+            clientGameLogic.InstantiateRemotePlayer(int.Parse(csv[1]), int.Parse(csv[2]));
         }
         else if (signifier == ServerToClientSignifiers.RemotePlayerLerpMove)
         {
@@ -27,8 +27,9 @@ static public class NetworkClientProcessing
         }
         // else if (signifier == ServerToClientSignifiers.asd)
         // { wawa we wa >:) King of the castle
-
-        // }
+        //   high five
+         // yay!
+        // } YIPPE!
 
         //gameLogic.DoSomething();
 

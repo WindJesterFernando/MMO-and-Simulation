@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RemotePlayerCharacter : AbstractPlayerController
+public class RemotePlayerController : AbstractPlayerController
 {
 
     void Start()

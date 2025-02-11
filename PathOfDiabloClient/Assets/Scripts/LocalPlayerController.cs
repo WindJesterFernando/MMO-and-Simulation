@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerCharacterController : AbstractPlayerController
+public class LocalPlayerController : AbstractPlayerController
 {
     const float moveSpeed = 10;
 
@@ -27,16 +27,10 @@ public class PlayerCharacterController : AbstractPlayerController
             if (IsMousePositionGreaterThanThreshold(mousePos, lastMouseDownPosition))
             {
                 lerpMoveStart = transform.position;
-
                 float cameraDistanceInZ = Mathf.Abs(Camera.main.transform.position.z);
                 lerpMoveEnd = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cameraDistanceInZ));
-
-                float xDif = Mathf.Abs(lerpMoveStart.x - lerpMoveEnd.x);
-                float yDif = Mathf.Abs(lerpMoveStart.y - lerpMoveEnd.y);
-                float dist = Mathf.Sqrt(xDif * xDif + yDif * yDif);
-
+                float dist = Utilities.GetDistanceBetween(lerpMoveStart, lerpMoveEnd);
                 lerpMoveTimeUntilComplete = dist / moveSpeed;
-
                 lerpMoveTimeElapsed = 0;
 
                 string netMsg = Utilities.Concatenate((int)ClientToServerSignifiers.LocalPlayerLerpMove,
@@ -65,10 +59,7 @@ public class PlayerCharacterController : AbstractPlayerController
     public bool IsMousePositionGreaterThanThreshold(Vector2 mousePos, Vector2 lastMousePos)
     {
         const float Threshold = 0.01f;
-
-        float xDif = Mathf.Abs(mousePos.x - lastMousePos.x);
-        float yDif = Mathf.Abs(mousePos.y - lastMousePos.y);
-        float dist = Mathf.Sqrt(xDif * xDif + yDif * yDif);
+        float dist = Utilities.GetDistanceBetween(mousePos, lastMousePos);
 
         if(dist > Threshold)
             return true;

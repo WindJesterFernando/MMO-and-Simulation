@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class ClientGameLogic : MonoBehaviour
 {
-    GameObject localPlayerCharacter;
+    GameObject localPlayer;
 
     [SerializeField]
     List<Sprite> spritesToRandomlySelectFrom;
 
-    Dictionary<int, GameObject> remotePlayerCharacterDictionary;
+    Dictionary<int, GameObject> remotePlayerDictionary;
 
 
     void Start()
     {
-        remotePlayerCharacterDictionary = new Dictionary<int, GameObject>();
+        remotePlayerDictionary = new Dictionary<int, GameObject>();
         NetworkClientProcessing.Init(this);
 
     }
@@ -24,27 +24,27 @@ public class ClientGameLogic : MonoBehaviour
 
     }
 
-    public void InstantiatePlayerCharacter(int spriteIndex)
+    public void InstantiateLocalPlayer(int spriteIndex)
     {
-        localPlayerCharacter = Instantiate(Resources.Load<GameObject>("PlayerCharacter"));
-        localPlayerCharacter.AddComponent<PlayerCharacterController>();
-        localPlayerCharacter.GetComponent<SpriteRenderer>().sprite = spritesToRandomlySelectFrom[spriteIndex];
+        localPlayer = Instantiate(Resources.Load<GameObject>("Player"));
+        localPlayer.AddComponent<LocalPlayerController>();
+        localPlayer.GetComponent<SpriteRenderer>().sprite = spritesToRandomlySelectFrom[spriteIndex];
     }
 
-    public void InstantiateOtherPlayerCharacter(int otherPlayerID, int otherSpriteIndex)
+    public void InstantiateRemotePlayer(int otherPlayerID, int otherSpriteIndex)
     {
-        GameObject remotePlayerCharacter;
-        remotePlayerCharacter = Instantiate(Resources.Load<GameObject>("PlayerCharacter"));
-        remotePlayerCharacter.AddComponent<RemotePlayerCharacter>();
-        remotePlayerCharacter.GetComponent<SpriteRenderer>().sprite = spritesToRandomlySelectFrom[otherSpriteIndex];
-        remotePlayerCharacterDictionary.Add(otherPlayerID, remotePlayerCharacter);
+        GameObject remotePlayer;
+        remotePlayer = Instantiate(Resources.Load<GameObject>("Player"));
+        remotePlayer.AddComponent<RemotePlayerController>();
+        remotePlayer.GetComponent<SpriteRenderer>().sprite = spritesToRandomlySelectFrom[otherSpriteIndex];
+        remotePlayerDictionary.Add(otherPlayerID, remotePlayer);
     }
 
     public void LerpMoveRemotePlayer(float lerpMoveStartX, float lerpMoveStartY, float lerpMoveEndX, float lerpMoveEndY, float lerpMoveTimeUntilComplete, int playerID)
     {
-        GameObject rpc = remotePlayerCharacterDictionary[playerID];
+        GameObject rpc = remotePlayerDictionary[playerID];
 
-        rpc.GetComponent<RemotePlayerCharacter>().ReceiveLerpMoveData(lerpMoveStartX, lerpMoveStartY, lerpMoveEndX, lerpMoveEndY, lerpMoveTimeUntilComplete);
+        rpc.GetComponent<RemotePlayerController>().ReceiveLerpMoveData(lerpMoveStartX, lerpMoveStartY, lerpMoveEndX, lerpMoveEndY, lerpMoveTimeUntilComplete);
     }
 
 }
