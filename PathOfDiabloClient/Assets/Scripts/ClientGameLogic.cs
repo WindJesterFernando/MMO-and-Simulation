@@ -1,10 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 
 public class ClientGameLogic : MonoBehaviour
 {
     GameObject localPlayer;
+
+    [SerializeField]
+    TMP_Text pingDisplayText;
 
     [SerializeField]
     List<Sprite> spritesToRandomlySelectFrom;
@@ -69,6 +73,8 @@ public class ClientGameLogic : MonoBehaviour
     public void PrintPingTimer()
     {
         //Debug.Log("Ping return time == " + (pingTimer * 1000) + " ms");
+
+        pingDisplayText.text = "Ping: " + Mathf.Floor(pingTimer * 1000) + "ms";
     }
 
     public void StartPingTimer()

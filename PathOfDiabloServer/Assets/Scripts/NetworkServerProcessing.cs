@@ -8,12 +8,13 @@ static public class NetworkServerProcessing
     #region Send and Receive Data Functions
     static public void ReceivedMessageFromClient(string msg, int clientConnectionID, TransportPipeline pipeline)
     {
-        Debug.Log("Network msg received =  " + msg + ", from connection id = " + clientConnectionID + ", from pipeline = " + pipeline);
-
         serverGameLogic.KeepClientConnectionAlive(clientConnectionID);
 
         string[] csv = msg.Split(',');
         ClientToServerSignifiers signifier = (ClientToServerSignifiers)int.Parse(csv[0]);
+
+        if (signifier != ClientToServerSignifiers.Ping)
+            Debug.Log("Network msg received =  " + msg + ", from connection id = " + clientConnectionID + ", from pipeline = " + pipeline);
 
         if (signifier == ClientToServerSignifiers.asd)
         {
