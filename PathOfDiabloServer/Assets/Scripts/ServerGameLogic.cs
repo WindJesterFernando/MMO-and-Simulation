@@ -20,8 +20,8 @@ public class ServerGameLogic : MonoBehaviour
 
         // if(Input.GetKeyDown(KeyCode.D))
         // {
-            
-            
+
+
         // }
 
         LinkedList<int> removeMes = new LinkedList<int>();
@@ -29,7 +29,7 @@ public class ServerGameLogic : MonoBehaviour
         {
             player.timeOut -= Time.deltaTime;
 
-            if(player.timeOut <= 0)
+            if (player.timeOut <= 0)
             {
                 removeMes.AddLast(player.id);
             }
@@ -96,6 +96,15 @@ public class ServerGameLogic : MonoBehaviour
 
     public void RemovePlayer(int clientID)
     {
+        foreach (int id in idToPlayerDictionary.Keys)
+        {
+            if(clientID != id)
+            {
+                NetworkServerProcessing.SendMessageToClient(Utilities.Concatenate(
+                        (int)ServerToClientSignifiers.DisconnectRemotePlayer, clientID.ToString()), id);
+            }
+        }
+
         ClientPlayerCharacterData player = idToPlayerDictionary[clientID];
         idToPlayerDictionary.Remove(clientID);
         Destroy(player.playerGameObject);

@@ -76,4 +76,11 @@ public class ClientGameLogic : MonoBehaviour
         pingTimerHasBeenStarted = true;
     }
 
+    public void RemoveRemotePlayerFromDictionary(int id)
+    {
+        GameObject go = remotePlayerDictionary[id];
+        remotePlayerDictionary.Remove(id);
+        Destroy(go);
+    }
+
 }

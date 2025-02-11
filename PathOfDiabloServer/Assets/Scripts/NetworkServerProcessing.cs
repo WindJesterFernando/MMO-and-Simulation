@@ -59,7 +59,7 @@ static public class NetworkServerProcessing
     static NetworkServer networkServer;
     static ServerGameLogic serverGameLogic;
 
-    public const float TimeOutReset = 5;
+    public const float TimeOutReset = 50;
 
     static public void SetNetworkServer(NetworkServer NetworkServer)
     {
@@ -92,8 +92,7 @@ public enum ServerToClientSignifiers
     ExistingPlayerConnectionData = 3,
     RemotePlayerLerpMove = 4,
     Pong = 5,
-
-
+    DisconnectRemotePlayer = 6,
 }
 
 #endregion

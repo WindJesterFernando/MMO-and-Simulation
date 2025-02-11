@@ -8,10 +8,11 @@ static public class NetworkClientProcessing
     #region Send and Receive Data Functions
     static public void ReceivedMessageFromServer(string msg, TransportPipeline pipeline)
     {
-        Debug.Log("Network msg received =  " + msg + ", from pipeline = " + pipeline);
-
         string[] csv = msg.Split(',');
         ServerToClientSignifiers signifier = (ServerToClientSignifiers)int.Parse(csv[0]);
+
+        if(signifier != ServerToClientSignifiers.Pong)
+            Debug.Log("Network msg received =  " + msg + ", from pipeline = " + pipeline);
 
         if (signifier == ServerToClientSignifiers.RandomizedSpriteIndexForClient)
         {
@@ -21,7 +22,7 @@ static public class NetworkClientProcessing
         {
             clientGameLogic.InstantiateRemotePlayer(int.Parse(csv[1]), int.Parse(csv[2]));
         }
-        else if(signifier == ServerToClientSignifiers.ExistingPlayerConnectionData)
+        else if (signifier == ServerToClientSignifiers.ExistingPlayerConnectionData)
         {
             clientGameLogic.InstantiateRemotePlayer(int.Parse(csv[1]), int.Parse(csv[2]), float.Parse(csv[3]), float.Parse(csv[4]));
         }
@@ -35,10 +36,17 @@ static public class NetworkClientProcessing
             clientGameLogic.PrintPingTimer();
         }
 
+        else if (signifier == ServerToClientSignifiers.DisconnectRemotePlayer)
+        {
+            clientGameLogic.RemoveRemotePlayerFromDictionary(int.Parse(csv[1]));
+        }
+
+        
+
         // else if (signifier == ServerToClientSignifiers.asd)
         // { wawa we wa >:) King of the castle
         //   high five
-         // yay!
+        // yay!
         // } YIPPE!
 
         //gameLogic.DoSomething();
@@ -112,8 +120,8 @@ public enum ServerToClientSignifiers
     NewPlayerConnectedData = 2,
     ExistingPlayerConnectionData = 3,
     RemotePlayerLerpMove = 4,
-
     Pong = 5,
+    DisconnectRemotePlayer = 6,
 }
 
 #endregion
