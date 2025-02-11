@@ -1,10 +1,7 @@
 using UnityEngine;
 
-public class RemotePlayerCharacter : MonoBehaviour
+public class RemotePlayerCharacter : AbstractPlayerController
 {
-
-    Vector3 lerpMoveStart, lerpMoveEnd;
-    float lerpMoveTimeUntilComplete, lerpMoveTimeElapsed;
 
     void Start()
     {
@@ -13,12 +10,7 @@ public class RemotePlayerCharacter : MonoBehaviour
 
     void Update()
     {
-        if (transform.position != lerpMoveEnd)
-        {
-            lerpMoveTimeElapsed += Time.deltaTime;
-            float timeCompletePercent = lerpMoveTimeElapsed / lerpMoveTimeUntilComplete;
-            transform.position = Vector3.Lerp(lerpMoveStart, lerpMoveEnd, timeCompletePercent);
-        }
+        UpdateLerpMovement();
     }
 
     public void ReceiveLerpMoveData(float lerpMoveStartX, float lerpMoveStartY, float lerpMoveEndX, float lerpMoveEndY, float lerpMoveTimeUntilComplete)

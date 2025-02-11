@@ -26,7 +26,7 @@ static public class NetworkClientProcessing
             clientGameLogic.LerpMoveRemotePlayer(float.Parse(csv[1]), float.Parse(csv[2]), float.Parse(csv[3]), float.Parse(csv[4]), float.Parse(csv[5]), int.Parse(csv[6]));
         }
         // else if (signifier == ServerToClientSignifiers.asd)
-        // {
+        // { wawa we wa >:) King of the castle
 
         // }
 

@@ -1,12 +1,11 @@
 using UnityEngine;
 
-public class PlayerCharacterController : MonoBehaviour
+public class PlayerCharacterController : AbstractPlayerController
 {
-
-    Vector3 lerpMoveStart, lerpMoveEnd;
-    float lerpMoveTimeUntilComplete, lerpMoveTimeElapsed;
-
     const float moveSpeed = 10;
+
+    Vector2 lastMouseDownPosition;
+    bool mouseWasDownDuringLastUpdate;
 
     void Start()
     {
@@ -15,49 +14,51 @@ public class PlayerCharacterController : MonoBehaviour
 
     void Update()
     {
+        UpdateLerpMovement();
 
         #region On Mouse Click, Setup Lerp Movement
 
-        bool mouseClick = Input.GetMouseButton(0);
+        bool mouseDown = Input.GetMouseButton(0);
 
-        if (mouseClick)
+        if (mouseDown && !mouseWasDownDuringLastUpdate)
         {
-            lerpMoveStart = transform.position;
-
             Vector2 mousePos = Input.mousePosition;
-            float cameraDistanceInZ = Mathf.Abs(Camera.main.transform.position.z);
-            lerpMoveEnd = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cameraDistanceInZ));
 
-            float xDif = Mathf.Abs(lerpMoveStart.x - lerpMoveEnd.x);
-            float yDif = Mathf.Abs(lerpMoveStart.y - lerpMoveEnd.y);
-            float dist = Mathf.Sqrt(xDif * xDif + yDif * yDif);
+            if (lastMouseDownPosition != mousePos)
+            {
+                lerpMoveStart = transform.position;
 
-            lerpMoveTimeUntilComplete = dist / moveSpeed;
+                float cameraDistanceInZ = Mathf.Abs(Camera.main.transform.position.z);
+                lerpMoveEnd = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cameraDistanceInZ));
 
-            lerpMoveTimeElapsed = 0;
+                float xDif = Mathf.Abs(lerpMoveStart.x - lerpMoveEnd.x);
+                float yDif = Mathf.Abs(lerpMoveStart.y - lerpMoveEnd.y);
+                float dist = Mathf.Sqrt(xDif * xDif + yDif * yDif);
 
-            string netMsg = Utilities.Concatenate((int)ClientToServerSignifiers.LocalPlayerLerpMove, 
-                lerpMoveStart.x.ToString(), 
-                lerpMoveStart.y.ToString(), 
-                lerpMoveEnd.x.ToString(), 
-                lerpMoveEnd.y.ToString(), 
-                lerpMoveTimeUntilComplete.ToString());
-            NetworkClientProcessing.SendMessageToServer(netMsg);
+                lerpMoveTimeUntilComplete = dist / moveSpeed;
+
+                lerpMoveTimeElapsed = 0;
+
+                string netMsg = Utilities.Concatenate((int)ClientToServerSignifiers.LocalPlayerLerpMove,
+                    lerpMoveStart.x.ToString(),
+                    lerpMoveStart.y.ToString(),
+                    lerpMoveEnd.x.ToString(),
+                    lerpMoveEnd.y.ToString(),
+                    lerpMoveTimeUntilComplete.ToString());
+                NetworkClientProcessing.SendMessageToServer(netMsg);
+
+                lastMouseDownPosition = mousePos;
+            }
+
+            mouseWasDownDuringLastUpdate = true;
         }
-
-        #endregion
-
-        #region Lerp Move Character
-
-        if(transform.position != lerpMoveEnd)
+        else
         {
-            lerpMoveTimeElapsed += Time.deltaTime;
-            float timeCompletePercent = lerpMoveTimeElapsed / lerpMoveTimeUntilComplete;
-            transform.position = Vector3.Lerp(lerpMoveStart, lerpMoveEnd, timeCompletePercent);
-
+            mouseWasDownDuringLastUpdate = false;
         }
 
-        #endregion
 
+
+        #endregion
     }
 }
