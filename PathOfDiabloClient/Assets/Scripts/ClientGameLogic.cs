@@ -11,6 +11,8 @@ public class ClientGameLogic : MonoBehaviour
 
     Dictionary<int, GameObject> remotePlayerDictionary;
 
+    float pingTimer;
+
 
     void Start()
     {
@@ -21,7 +23,14 @@ public class ClientGameLogic : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("Ping");
+            NetworkClientProcessing.SendMessageToServer(((int)ClientToServerSignifiers.Ping).ToString());
+            pingTimer = 0;
+        }
 
+        pingTimer += Time.deltaTime;
     }
 
     public void InstantiateLocalPlayer(int spriteIndex)
@@ -37,7 +46,8 @@ public class ClientGameLogic : MonoBehaviour
         remotePlayer = Instantiate(Resources.Load<GameObject>("Player"));
         float cameraDistanceInZ = Mathf.Abs(Camera.main.transform.position.z);
         remotePlayer.transform.position = new Vector3(xPos, yPos, cameraDistanceInZ);
-        remotePlayer.AddComponent<RemotePlayerController>();
+        RemotePlayerController rpc = remotePlayer.AddComponent<RemotePlayerController>();
+        rpc.SetLerpMoveEndToCurrentPosition();
         remotePlayer.GetComponent<SpriteRenderer>().sprite = spritesToRandomlySelectFrom[otherSpriteIndex];
         remotePlayerDictionary.Add(otherPlayerID, remotePlayer);
     }
@@ -47,6 +57,11 @@ public class ClientGameLogic : MonoBehaviour
         GameObject rpc = remotePlayerDictionary[playerID];
 
         rpc.GetComponent<RemotePlayerController>().ReceiveLerpMoveData(lerpMoveStartX, lerpMoveStartY, lerpMoveEndX, lerpMoveEndY, lerpMoveTimeUntilComplete);
+    }
+
+    public void PrintPingTimer()
+    {
+        Debug.Log("Ping return time == " + pingTimer);
     }
 
 }

@@ -20,4 +20,9 @@ public class AbstractPlayerController : MonoBehaviour
             transform.position = Vector3.Lerp(lerpMoveStart, lerpMoveEnd, timeCompletePercent);
         }
     }
+
+    public void SetLerpMoveEndToCurrentPosition()
+    {
+        lerpMoveEnd = transform.position;
+    }
 }

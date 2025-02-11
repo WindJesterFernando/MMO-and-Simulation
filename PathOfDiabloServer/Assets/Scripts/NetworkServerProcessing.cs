@@ -21,6 +21,10 @@ static public class NetworkServerProcessing
         {
             serverGameLogic.ProcessPlayerLerpMove(float.Parse(csv[1]), float.Parse(csv[2]), float.Parse(csv[3]), float.Parse(csv[4]), float.Parse(csv[5]), clientConnectionID);
         }
+        else if (signifier == ClientToServerSignifiers.Ping)
+        {
+            SendMessageToClient(((int)ServerToClientSignifiers.Pong).ToString(), clientConnectionID);
+        }
 
     }
     static public void SendMessageToClient(string msg, int clientConnectionID, TransportPipeline pipeline = TransportPipeline.ReliableAndInOrder)
@@ -39,7 +43,7 @@ static public class NetworkServerProcessing
         serverGameLogic.CreatePlayerPrefab(clientConnectionID);
 
 
-        
+
     }
     static public void DisconnectionEvent(int clientConnectionID)
     {
@@ -74,6 +78,8 @@ public enum ClientToServerSignifiers
 {
     asd = 1,
     LocalPlayerLerpMove = 2,
+
+    Ping = 3,
 }
 
 public enum ServerToClientSignifiers
@@ -82,6 +88,10 @@ public enum ServerToClientSignifiers
     NewPlayerConnectedData = 2,
     ExistingPlayerConnectionData = 3,
     RemotePlayerLerpMove = 4,
+
+    Pong = 5,
+
+
 }
 
 #endregion
