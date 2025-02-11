@@ -12,6 +12,9 @@ public class ClientGameLogic : MonoBehaviour
     Dictionary<int, GameObject> remotePlayerDictionary;
 
     float pingTimer;
+    float nextPingTimer;
+    const float TimeUntilNextPing = 1;
+
 
 
     void Start()
@@ -23,14 +26,18 @@ public class ClientGameLogic : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        if (NetworkClientProcessing.IsConnectedToServer())
         {
-            Debug.Log("Ping");
-            NetworkClientProcessing.SendMessageToServer(((int)ClientToServerSignifiers.Ping).ToString());
-            pingTimer = 0;
-        }
+            if (nextPingTimer <= 0)//Input.GetKeyDown(KeyCode.P))
+            {
+                NetworkClientProcessing.SendMessageToServer(((int)ClientToServerSignifiers.Ping).ToString());
+                pingTimer = 0;
+                nextPingTimer = TimeUntilNextPing;
+            }
 
-        pingTimer += Time.deltaTime;
+            pingTimer += Time.deltaTime;
+            nextPingTimer -= Time.deltaTime;
+        }
     }
 
     public void InstantiateLocalPlayer(int spriteIndex)
@@ -61,7 +68,7 @@ public class ClientGameLogic : MonoBehaviour
 
     public void PrintPingTimer()
     {
-        Debug.Log("Ping return time == " + pingTimer);
+        Debug.Log("Ping return time == " + (pingTimer * 1000) + " ms");
     }
 
 }
