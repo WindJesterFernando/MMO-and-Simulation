@@ -4,13 +4,15 @@ using TMPro;
 public class ConwaySimulationManager : MonoBehaviour
 {
     int generationNumber = 1;
-    const float TimeToWaitForNextGeneration = 2.5f;
+    const float TimeToWaitForNextGeneration = 0;//2.5f;
     float elapsedTimeSinceLastGeneration = 0;
     const int GridSizeX = 20, GridSizeY = 20;
     CellData[,] gridData;
 
     [SerializeField] TMP_Text generationNumberText;
     GameObject[,] gridVisuals;
+
+    float timeSinceLastBenchmark;
 
     void Start()
     {
@@ -124,6 +126,18 @@ public class ConwaySimulationManager : MonoBehaviour
             #endregion
 
             UpdateVisualsFromModelData();
+
+            #region Benchmark Check
+
+            timeSinceLastBenchmark += Time.deltaTime;
+
+            if(generationNumber % 10000 == 0)
+            {
+                Debug.Log("Benchmark #" + generationNumber / 10000 + ", time taken == " + timeSinceLastBenchmark);
+                timeSinceLastBenchmark = 0;
+            }
+
+            #endregion
         }
 
     }
