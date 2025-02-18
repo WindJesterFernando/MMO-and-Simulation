@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Threading;
+using UnityEditor;
 
 public class ConwaySimulationManager : MonoBehaviour
 {
@@ -17,12 +18,10 @@ public class ConwaySimulationManager : MonoBehaviour
 
     Thread sampleThread;
 
+    bool threadIsPaused;
+
     void Start()
     {
-        sampleThread = new Thread(new ThreadStart(ThreadProcess));
-
-        sampleThread.Start();
-
         #region Instantiate Grid Visuals
 
         GameObject gridVisualsParent = new GameObject("Grid Cells");
@@ -100,53 +99,18 @@ public class ConwaySimulationManager : MonoBehaviour
 
         UpdateVisualsFromModelData();
 
+        EditorApplication.pauseStateChanged += LogPauseState;
+
+        sampleThread = new Thread(new ThreadStart(ThreadProcess));
+        sampleThread.Start();
+
     }
 
     void Update()
     {
-        elapsedTimeSinceLastGeneration += Time.deltaTime;
+        UpdateVisualsFromModelData();
 
-        if (elapsedTimeSinceLastGeneration >= TimeToWaitForNextGeneration)
-        {
-            generationNumber++;
-            elapsedTimeSinceLastGeneration -= TimeToWaitForNextGeneration;
-
-            #region Process Generation On Model Data
-
-            for (int x = 0; x < GridSizeX; x++)
-            {
-                for (int y = 0; y < GridSizeX; y++)
-                {
-                    gridData[x, y].isAliveNextGeneration = DetermineIfCellIsAliveNextGeneration(x, y);
-                }
-            }
-
-            for (int x = 0; x < GridSizeX; x++)
-            {
-                for (int y = 0; y < GridSizeX; y++)
-                {
-                    gridData[x, y].isAlive = gridData[x, y].isAliveNextGeneration;
-                    gridData[x, y].isAliveNextGeneration = false;
-                }
-            }
-
-            #endregion
-
-            UpdateVisualsFromModelData();
-
-            #region Benchmark Check
-
-            timeSinceLastBenchmark += Time.deltaTime;
-
-            if (generationNumber % 10000 == 0)
-            {
-                Debug.Log("Benchmark #" + generationNumber / 10000 + ", time taken == " + timeSinceLastBenchmark);
-                timeSinceLastBenchmark = 0;
-            }
-
-            #endregion
-        }
-
+        timeSinceLastBenchmark += Time.deltaTime;
     }
 
     public bool DetermineIfCellIsAliveNextGeneration(int x, int y)
@@ -252,17 +216,61 @@ public class ConwaySimulationManager : MonoBehaviour
         }
     }
 
-    public static void ThreadProcess()
+    public void ThreadProcess()
     {
-        for (int i = 0; i < 500; i++)
-            Debug.Log("Threaded Process... " + i);
+        while (true)
+        {
+            if(threadIsPaused)
+            {
+                Thread.Sleep(10);
+                continue;
+            }
 
-        Debug.Log("Competed!");
+            generationNumber++;
+
+            #region Process Generation On Model Data
+
+            for (int x = 0; x < GridSizeX; x++)
+            {
+                for (int y = 0; y < GridSizeX; y++)
+                {
+                    gridData[x, y].isAliveNextGeneration = DetermineIfCellIsAliveNextGeneration(x, y);
+                }
+            }
+
+            for (int x = 0; x < GridSizeX; x++)
+            {
+                for (int y = 0; y < GridSizeX; y++)
+                {
+                    gridData[x, y].isAlive = gridData[x, y].isAliveNextGeneration;
+                    gridData[x, y].isAliveNextGeneration = false;
+                }
+            }
+
+            #endregion
+
+            #region Benchmark Check
+
+            if (generationNumber % 100000 == 0)
+            {
+                Debug.Log("Benchmark #" + generationNumber / 100000 + ", time taken == " + timeSinceLastBenchmark);
+                timeSinceLastBenchmark = 0;
+            }
+
+
+            #endregion
+        }
+
     }
 
     void OnApplicationQuit()
     {
         sampleThread.Abort();
+    }
+
+    private void LogPauseState(PauseState state)
+    {
+        threadIsPaused = (state == PauseState.Paused);
     }
 
 }
