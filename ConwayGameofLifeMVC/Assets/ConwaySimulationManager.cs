@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Threading;
 
 public class ConwaySimulationManager : MonoBehaviour
 {
@@ -14,8 +15,14 @@ public class ConwaySimulationManager : MonoBehaviour
 
     float timeSinceLastBenchmark;
 
+    Thread sampleThread;
+
     void Start()
     {
+        sampleThread = new Thread(new ThreadStart(ThreadProcess));
+
+        sampleThread.Start();
+
         #region Instantiate Grid Visuals
 
         GameObject gridVisualsParent = new GameObject("Grid Cells");
@@ -131,7 +138,7 @@ public class ConwaySimulationManager : MonoBehaviour
 
             timeSinceLastBenchmark += Time.deltaTime;
 
-            if(generationNumber % 10000 == 0)
+            if (generationNumber % 10000 == 0)
             {
                 Debug.Log("Benchmark #" + generationNumber / 10000 + ", time taken == " + timeSinceLastBenchmark);
                 timeSinceLastBenchmark = 0;
@@ -243,6 +250,19 @@ public class ConwaySimulationManager : MonoBehaviour
                     gridVisuals[x, y].GetComponent<SpriteRenderer>().color = Color.gray;
             }
         }
+    }
+
+    public static void ThreadProcess()
+    {
+        for (int i = 0; i < 500; i++)
+            Debug.Log("Threaded Process... " + i);
+
+        Debug.Log("Competed!");
+    }
+
+    void OnApplicationQuit()
+    {
+        sampleThread.Abort();
     }
 
 }
