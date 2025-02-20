@@ -2,13 +2,15 @@ using UnityEngine;
 using TMPro;
 using System.Threading;
 using UnityEditor;
+using System.Collections;
+using System.Collections.Generic;
 
 public class ConwaySimulationManager : MonoBehaviour
 {
     int generationNumber = 1;
-    const float TimeToWaitForNextGeneration = 0;//2.5f;
-    float elapsedTimeSinceLastGeneration = 0;
-    const int GridSizeX = 20, GridSizeY = 20;
+    //const float TimeToWaitForNextGeneration = 0;//2.5f;
+    //float elapsedTimeSinceLastGeneration = 0;
+    const int GridSizeX = 50, GridSizeY = 50;
     CellData[,] gridData;
 
     [SerializeField] TMP_Text generationNumberText;
@@ -16,12 +18,20 @@ public class ConwaySimulationManager : MonoBehaviour
 
     float timeSinceLastBenchmark;
 
-    Thread sampleThread;
+    Thread simulationThread;
 
     bool threadIsPaused;
 
+    bool[,] bufferToBeUsedToUpdateVisuals;
+
+    const int GenerationsUntilBenchmarkCheck = 100000;
+
+    Queue<bool[,]> bufferQueue;
+
     void Start()
     {
+        bufferQueue = new Queue<bool[,]>();
+
         #region Instantiate Grid Visuals
 
         GameObject gridVisualsParent = new GameObject("Grid Cells");
@@ -97,12 +107,14 @@ public class ConwaySimulationManager : MonoBehaviour
 
         #endregion
 
+        bufferToBeUsedToUpdateVisuals = new bool[GridSizeX, GridSizeY];
+
         UpdateVisualsFromModelData();
 
         EditorApplication.pauseStateChanged += LogPauseState;
 
-        sampleThread = new Thread(new ThreadStart(ThreadProcess));
-        sampleThread.Start();
+        simulationThread = new Thread(new ThreadStart(ProcessSimThread));
+        simulationThread.Start();
 
     }
 
@@ -204,23 +216,46 @@ public class ConwaySimulationManager : MonoBehaviour
     {
         generationNumberText.text = "Generation #" + generationNumber;
 
-        for (int x = 0; x < GridSizeX; x++)
+        if (bufferQueue.Count > 0)
         {
-            for (int y = 0; y < GridSizeX; y++)
+            if (bufferQueue.Count > 1)
+                Debug.Log(bufferQueue.Count);
+
+            while (bufferQueue.Count > 1)
+                bufferQueue.Dequeue();
+
+            bool[,] fromBuffer = bufferQueue.Dequeue();
+
+            // // = copy of global buffer;// = new bool[GridSizeX, GridSizeY];
+
+            // //bool[,] doubleBuffer; // copy of fromBuff
+            // lock (bufferToBeUsedToUpdateVisuals)
+            // {
+            //     fromBuffer = CreateDeepCopyOfGrid(bufferToBeUsedToUpdateVisuals);
+            // }
+
+            for (int x = 0; x < GridSizeX; x++)
             {
-                if (gridData[x, y].isAlive)
-                    gridVisuals[x, y].GetComponent<SpriteRenderer>().color = Color.yellow;
-                else
-                    gridVisuals[x, y].GetComponent<SpriteRenderer>().color = Color.gray;
+                for (int y = 0; y < GridSizeX; y++)
+                {
+                    if (fromBuffer[x, y])
+                        gridVisuals[x, y].GetComponent<SpriteRenderer>().color = Color.yellow;
+                    else
+                        gridVisuals[x, y].GetComponent<SpriteRenderer>().color = Color.gray;
+                }
             }
+
         }
+
+
+
     }
 
-    public void ThreadProcess()
+    public void ProcessSimThread()
     {
         while (true)
         {
-            if(threadIsPaused)
+            if (threadIsPaused)
             {
                 Thread.Sleep(10);
                 continue;
@@ -247,16 +282,27 @@ public class ConwaySimulationManager : MonoBehaviour
                 }
             }
 
+            if (bufferQueue.Count == 0)
+            {
+                bool[,] toBuffer = CreateDeepCopyOfGrid(gridData);
+
+                bufferQueue.Enqueue(toBuffer);
+            }
+
+            // lock (bufferToBeUsedToUpdateVisuals)
+            // {
+            //     bufferToBeUsedToUpdateVisuals = CreateDeepCopyOfGrid(toBuffer);
+            // }
+
             #endregion
 
             #region Benchmark Check
 
-            if (generationNumber % 100000 == 0)
+            if (generationNumber % GenerationsUntilBenchmarkCheck == 0)
             {
-                Debug.Log("Benchmark #" + generationNumber / 100000 + ", time taken == " + timeSinceLastBenchmark);
+                Debug.Log("Benchmark #" + generationNumber / GenerationsUntilBenchmarkCheck + ", time taken == " + timeSinceLastBenchmark);
                 timeSinceLastBenchmark = 0;
             }
-
 
             #endregion
         }
@@ -265,12 +311,45 @@ public class ConwaySimulationManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        sampleThread.Abort();
+        simulationThread.Abort();
     }
 
     private void LogPauseState(PauseState state)
     {
         threadIsPaused = (state == PauseState.Paused);
+    }
+
+    private bool[,] CreateDeepCopyOfGrid(bool[,] toCopy)
+    {
+        bool[,] newCopy = new bool[GridSizeX, GridSizeY];
+
+        for (int x = 0; x < GridSizeX; x++)
+        {
+            for (int y = 0; y < GridSizeX; y++)
+            {
+                newCopy[x, y] = toCopy[x, y];
+            }
+        }
+
+        //newCopy = (bool[,])toCopy.Clone();
+        //https://stackoverflow.com/questions/15725840/copy-one-2d-array-to-another-2d-array
+
+        return newCopy;
+    }
+
+    private bool[,] CreateDeepCopyOfGrid(CellData[,] toCopy)
+    {
+        bool[,] newCopy = new bool[GridSizeX, GridSizeY];
+
+        for (int x = 0; x < GridSizeX; x++)
+        {
+            for (int y = 0; y < GridSizeX; y++)
+            {
+                newCopy[x, y] = toCopy[x, y].isAlive;
+            }
+        }
+
+        return newCopy;
     }
 
 }
