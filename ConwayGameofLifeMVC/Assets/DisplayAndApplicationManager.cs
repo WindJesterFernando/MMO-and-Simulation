@@ -1,8 +1,6 @@
 using UnityEngine;
 using TMPro;
-using System.Threading;
 using UnityEditor;
-using System.Collections;
 using System.Collections.Generic;
 
 public class DisplayAndApplicationManager : MonoBehaviour
@@ -55,23 +53,29 @@ public class DisplayAndApplicationManager : MonoBehaviour
     void Update()
     {
         UpdateVisualsFromModelData();
-
-        ConwaySimulation.AddTimeToBenchmark(Time.deltaTime);
     }
     public void UpdateVisualsFromModelData()
     {
         generationNumberText.text = "Generation #" + ConwaySimulation.GetGenerationNumber();
 
-        if (bufferQueueOfModelDataForVisuals.Count > 0)
+        bool[,] fromBuffer = null;
+
+        lock (bufferQueueOfModelDataForVisuals)
         {
-            if (bufferQueueOfModelDataForVisuals.Count > 1)
-                Debug.Log(bufferQueueOfModelDataForVisuals.Count);
+            if (bufferQueueOfModelDataForVisuals.Count > 0)
+            {
+                if (bufferQueueOfModelDataForVisuals.Count > 1)
+                    Debug.Log(bufferQueueOfModelDataForVisuals.Count);
 
-            while (bufferQueueOfModelDataForVisuals.Count > 1)
-                bufferQueueOfModelDataForVisuals.Dequeue();
+                while (bufferQueueOfModelDataForVisuals.Count > 1)
+                    bufferQueueOfModelDataForVisuals.Dequeue();
 
-            bool[,] fromBuffer = bufferQueueOfModelDataForVisuals.Dequeue();
+                fromBuffer = bufferQueueOfModelDataForVisuals.Dequeue();
+            }
+        }
 
+        if(fromBuffer != null)
+        {
             for (int x = 0; x < ConwaySimulation.GridSizeX; x++)
             {
                 for (int y = 0; y < ConwaySimulation.GridSizeY; y++)
@@ -98,7 +102,8 @@ public class DisplayAndApplicationManager : MonoBehaviour
     }
     public void EnqueBufferOfModelDataForVisuals(bool[,] dataToEnqueue)
     {
-        bufferQueueOfModelDataForVisuals.Enqueue(dataToEnqueue);
+        lock (bufferQueueOfModelDataForVisuals)
+            bufferQueueOfModelDataForVisuals.Enqueue(dataToEnqueue);
     }
     public bool IsThreadPaused()
     {

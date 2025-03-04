@@ -1,10 +1,6 @@
 using UnityEngine;
-using TMPro;
 using System.Threading;
-using UnityEditor;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using System;
 
 static public class ConwaySimulation
 {
@@ -12,9 +8,10 @@ static public class ConwaySimulation
     static int generationNumber = 1;
     public const int GridSizeX = 100, GridSizeY = 100;
     static CellData[,] gridData;
-    static float timeSinceLastBenchmark;
-    const int GenerationsUntilBenchmarkCheck = 100000;
     static Thread simulationThread;
+    static float timeSinceLastBenchmark;
+    static long numberOfNanoSecondsElapsedSinceLastUpdate = 0;
+    const int GenerationsUntilBenchmarkCheck = 100000;
 
     static public void Init(DisplayAndApplicationManager displayAndApplicationManager)
     {
@@ -75,6 +72,9 @@ static public class ConwaySimulation
     }
     static public void ProcessSimThread()
     {
+        numberOfNanoSecondsElapsedSinceLastUpdate = Environment.TickCount;
+        numberOfNanoSecondsElapsedSinceLastUpdate = Environment.TickCount;
+
         while (true)
         {
             if (displayAndApplicationManager.IsThreadPaused())
@@ -82,6 +82,16 @@ static public class ConwaySimulation
                 Thread.Sleep(10);
                 continue;
             }
+
+            #region DeltaTime
+
+            long numberOfNanoSecondsElapsed = Environment.TickCount;
+            long difInNanoSecs = (numberOfNanoSecondsElapsed - numberOfNanoSecondsElapsedSinceLastUpdate);
+            float deltaTime = (float)difInNanoSecs / 1000f;
+            numberOfNanoSecondsElapsedSinceLastUpdate = numberOfNanoSecondsElapsed;
+            timeSinceLastBenchmark += deltaTime;
+
+            #endregion
 
             generationNumber++;
 
@@ -233,11 +243,6 @@ static public class ConwaySimulation
     {
         return generationNumber;
     }
-    static public void AddTimeToBenchmark(float deltaTime)
-    {
-        timeSinceLastBenchmark += deltaTime;
-    }
-
 }
 
 public class CellData
@@ -245,3 +250,8 @@ public class CellData
     public bool isAlive;
     public bool isAliveNextGeneration;
 }
+
+//"Worker" threads: takes a chunk of the conways grid and does all the checks.
+//	Maybe doesn't directly affect model data. Takes a copy of the section that it needs, and deposits into a queue when done?
+//"Checker" thread: AFTER the worker threads, checks all intersections. probably uses a lock
+//	Could take specefied generation from all queues to do intersection checks, then pushes to the queue read by visuals
