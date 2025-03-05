@@ -90,7 +90,7 @@ public class DisplayAndApplicationManager : MonoBehaviour
     }
     void OnApplicationQuit()
     {
-        ConwaySimulation.AbortThread();
+        ConwaySimulation.AbortThreads();
     }
     private void LogPauseState(PauseState state)
     {
