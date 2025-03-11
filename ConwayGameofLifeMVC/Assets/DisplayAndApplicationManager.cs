@@ -5,10 +5,11 @@ using System.Collections.Generic;
 
 public class DisplayAndApplicationManager : MonoBehaviour
 {
-    Queue<bool[,]> bufferQueueOfModelDataForVisuals;
-    [SerializeField] TMP_Text generationNumberText;
     GameObject[,] gridVisuals;
+    [SerializeField] TMP_Text generationNumberText;
+
     bool threadIsPaused;
+    Queue<bool[,]> bufferQueueOfModelDataForVisuals;
 
     void Start()
     {

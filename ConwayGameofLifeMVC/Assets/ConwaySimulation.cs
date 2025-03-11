@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Threading;
 using System;
+using System.Collections.Generic;
 
 static public class ConwaySimulation
 {
@@ -11,19 +12,23 @@ static public class ConwaySimulation
     static Thread simulationThread;//rename
     static float timeSinceLastBenchmark;
     static long numberOfNanoSecondsElapsedSinceLastUpdate = 0;
-    const int GenerationsUntilBenchmarkCheck = 10000;//00;
+    const int GenerationsUntilBenchmarkCheck = 10000;
 
-    static Thread bottomLeftThread, topLeftThread, bottomRightThread, topRightThread;
+    const int NumberOfWorkerThreads = 8;
+    static LinkedList<Thread> workerThreadPool;
+    static int rowToBeDetermineIfAlive;
+    static int rowsDeterminedComplete;
+    //https://stackoverflow.com/questions/420825/how-to-properly-lock-a-value-type
 
-    static bool mainSimulationThreadIsProcessing;
-    static bool bottomLeftCompleted, topLeftCompleted, bottomRightCompleted, topRightCompleted;
-    static bool isFlippingBools;
-
-    static object lockForBools;
+    static object rowToBeWorkedOnLock;
+    static object rowsCompleteLock;
+    
 
     static public void Init(DisplayAndApplicationManager displayAndApplicationManager)
     {
-        lockForBools = new object();
+        //Debug.Log("Environment.ProcessorCount == " + Environment.ProcessorCount);
+        rowToBeWorkedOnLock = new object();
+        rowsCompleteLock = new object();
 
         ConwaySimulation.displayAndApplicationManager = displayAndApplicationManager;
 
@@ -96,15 +101,18 @@ static public class ConwaySimulation
         simulationThread = new Thread(new ThreadStart(ProcessSimThread));
         simulationThread.Start();
 
-        bottomLeftThread = new Thread(new ThreadStart(DetermineIfCellsAreAliveNextGenerationInBottomLeft));
-        topLeftThread = new Thread(new ThreadStart(DetermineIfCellsAreAliveNextGenerationInTopLeft));
-        bottomRightThread = new Thread(new ThreadStart(DetermineIfCellsAreAliveNextGenerationInBottomRight));
-        topRightThread = new Thread(new ThreadStart(DetermineIfCellsAreAliveNextGenerationInTopRight));
+        workerThreadPool = new LinkedList<Thread>();
 
-        bottomLeftThread.Start();
-        topLeftThread.Start();
-        bottomRightThread.Start();
-        topRightThread.Start();
+        for (int i = 0; i < NumberOfWorkerThreads; i++)
+        {
+            Thread t = new Thread(new ThreadStart(DetermineIfCellsAreAliveNextGenerationOnRow));
+            workerThreadPool.AddLast(t);
+        }
+
+        foreach (Thread t in workerThreadPool)
+        {
+            t.Start();
+        }
     }
     static public void ProcessSimThread()
     {
@@ -114,16 +122,8 @@ static public class ConwaySimulation
         //for (int i = 0; i < 100; i++)
         while (true)
         {
-            if (!mainSimulationThreadIsProcessing || displayAndApplicationManager.IsThreadPaused())
+            if (displayAndApplicationManager.IsThreadPaused())
             {
-                // commenting this out completely seems to fuck us over somehow?
-                // but we're *absolutely* being throttled by this!
-                //Thread.Sleep(1);
-                // try this it will absolutely break but maybe?
-                //Thread.Sleep(new TimeSpan(1));
-
-                // could be worth looking at?:
-                // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/await
                 continue;
             }
 
@@ -137,69 +137,54 @@ static public class ConwaySimulation
 
             #endregion
 
-            // if (!mainSimulationThreadIsProcessing)
-            // {
-            //     // this is being hit quite a bit
-            //     Thread.Sleep(1);
-            //     // is this continue needed?
-            //     continue;
-            // }
-            // possible alternative to above block?: 
-            // while (!mainSimulationThreadIsProcessing) { /* nothing */ }
 
-            generationNumber++;
-
-            #region Process Generation On Model Data
-
-            // for (int x = 0; x < GridSizeX; x++)
-            // {
-            //     for (int y = 0; y < GridSizeY; y++)
-            //     {
-            //         gridData[x, y].isAliveNextGeneration = DetermineIfCellIsAliveNextGeneration(x, y);
-            //     }
-            // }
-
-            for (int x = 0; x < GridSizeX; x++)
+            lock (rowsCompleteLock)
             {
-                for (int y = 0; y < GridSizeY; y++)
+                //Debug.Log(rowsComplete);
+
+                if (rowsDeterminedComplete >= GridSizeX)
                 {
-                    gridData[x, y].isAlive = gridData[x, y].isAliveNextGeneration;
-                    gridData[x, y].isAliveNextGeneration = false;
+                    generationNumber++;
+
+                    #region Process Generation On Model Data
+
+                    lock (rowToBeWorkedOnLock)
+                    {
+
+                        for (int x = 0; x < GridSizeX; x++)
+                        {
+                            for (int y = 0; y < GridSizeY; y++)
+                            {
+                                gridData[x, y].isAlive = gridData[x, y].isAliveNextGeneration;
+                                gridData[x, y].isAliveNextGeneration = false;
+                            }
+                        }
+
+                        if (displayAndApplicationManager.IsBufferQueueOfModelDataForVisualsEmpty())
+                        {
+                            bool[,] toBuffer = CreateDeepCopyOfGrid(gridData);
+                            displayAndApplicationManager.EnqueBufferOfModelDataForVisuals(toBuffer);
+                        }
+
+                        rowToBeDetermineIfAlive = 0;
+                    }
+
+
+                    rowsDeterminedComplete = 0;
+
+                    #endregion
+
+                    #region Benchmark Check
+
+                    if (generationNumber % GenerationsUntilBenchmarkCheck == 0)
+                    {
+                        Debug.Log("Benchmark #" + generationNumber / GenerationsUntilBenchmarkCheck + ", time taken == " + timeSinceLastBenchmark);
+                        timeSinceLastBenchmark = 0;
+                    }
+
+                    #endregion
                 }
             }
-
-
-
-            if (displayAndApplicationManager.IsBufferQueueOfModelDataForVisualsEmpty())
-            {
-                bool[,] toBuffer = CreateDeepCopyOfGrid(gridData);
-                displayAndApplicationManager.EnqueBufferOfModelDataForVisuals(toBuffer);
-            }
-
-            #endregion
-
-            //while(isFlippingBools) {}
-
-            lock (lockForBools)
-            {
-                isFlippingBools = true;
-                bottomLeftCompleted = false;
-                topLeftCompleted = false;
-                bottomRightCompleted = false;
-                topRightCompleted = false;
-                mainSimulationThreadIsProcessing = false;
-                isFlippingBools = false;
-            }
-
-            #region Benchmark Check
-
-            if (generationNumber % GenerationsUntilBenchmarkCheck == 0)
-            {
-                Debug.Log("Benchmark #" + generationNumber / GenerationsUntilBenchmarkCheck + ", time taken == " + timeSinceLastBenchmark);
-                timeSinceLastBenchmark = 0;
-            }
-
-            #endregion
         }
 
     }
@@ -306,128 +291,78 @@ static public class ConwaySimulation
     static public void AbortThreads()
     {
         simulationThread.Abort();
-        bottomLeftThread.Abort();
-        topLeftThread.Abort();
-        bottomRightThread.Abort();
-        topRightThread.Abort();
+
+        foreach (Thread t in workerThreadPool)
+        {
+            t.Abort();
+        }
     }
     static public int GetGenerationNumber()
     {
         return generationNumber;
     }
-    static public void DetermineIfCellsAreAliveNextGenerationInBottomLeft()
+    static public void DetermineIfCellsAreAliveNextGenerationOnRow()
     {
         while (true)
         {
-            if (mainSimulationThreadIsProcessing || bottomLeftCompleted)
+            int x;
+
+            lock (rowToBeWorkedOnLock)
             {
-                //Thread.Sleep(10);
-                continue;
+                x = rowToBeDetermineIfAlive;
+                rowToBeDetermineIfAlive++;
             }
 
-            for (int x = 0; x < GridSizeX / 2; x++)
+            if (x < GridSizeX)
             {
-                for (int y = 0; y < GridSizeY / 2; y++)
+                //Debug.Log("X == " + x);
+                for (int y = 0; y < GridSizeY; y++)
                 {
                     gridData[x, y].isAliveNextGeneration = DetermineIfCellIsAliveNextGeneration(x, y);
                 }
-            }
-            
-            lock (lockForBools)
-            {
-                bottomLeftCompleted = true;
-                FlipMainSimulationBool();
-            }
-        }
-    }
-    static public void DetermineIfCellsAreAliveNextGenerationInTopLeft()
-    {
-        while (true)
-        {
-            if (mainSimulationThreadIsProcessing || topLeftCompleted)
-            {
-                //Thread.Sleep(10);
-                continue;
-            }
 
-            for (int x = 0; x < GridSizeX / 2; x++)
-            {
-                for (int y = GridSizeY / 2; y < GridSizeY; y++)
+                lock (rowsCompleteLock)
                 {
-                    gridData[x, y].isAliveNextGeneration = DetermineIfCellIsAliveNextGeneration(x, y);
+                    rowsDeterminedComplete++;
                 }
             }
-            lock (lockForBools)
-            {
-                topLeftCompleted = true;
-                FlipMainSimulationBool();
-            }
-        }
-    }
-    static public void DetermineIfCellsAreAliveNextGenerationInBottomRight()
-    {
-        while (true)
-        {
-            if (mainSimulationThreadIsProcessing || bottomRightCompleted)
-            {
-                //Thread.Sleep(1);
-                continue;
-            }
 
-            for (int x = GridSizeX / 2; x < GridSizeX; x++)
-            {
-                for (int y = 0; y < GridSizeY / 2; y++)
-                {
-                    gridData[x, y].isAliveNextGeneration = DetermineIfCellIsAliveNextGeneration(x, y);
-                }
-            }
-            lock (lockForBools)
-            {
-                bottomRightCompleted = true;
-                FlipMainSimulationBool();
-            }
-        }
-    }
-    static public void DetermineIfCellsAreAliveNextGenerationInTopRight()
-    {
-        while (true)
-        {
-            if (mainSimulationThreadIsProcessing || topRightCompleted)
-            {
-                //Thread.Sleep(10);
-                continue;
-            }
 
-            for (int x = GridSizeX / 2; x < GridSizeX; x++)
-            {
-                for (int y = GridSizeY / 2; y < GridSizeY; y++)
-                {
-                    gridData[x, y].isAliveNextGeneration = DetermineIfCellIsAliveNextGeneration(x, y);
-                }
-            }
-            lock (lockForBools)
-            {
-                topRightCompleted = true;
-                FlipMainSimulationBool();
-            }
-        }
 
-    }
 
-    static private void FlipMainSimulationBool()
-    {
-        if (topLeftCompleted && bottomLeftCompleted && topRightCompleted && bottomRightCompleted)
-        {
-            //while (isFlippingBools) { }
+//if appropriate, advance buffer
 
-            isFlippingBools = true;
-            mainSimulationThreadIsProcessing = true;
-            isFlippingBools = false;
+            // lock (rowToBeWorkedOnLock)
+            // {
+            //     x = rowToBeDetermineIfAlive;
+            //     rowToBeDetermineIfAlive++;
+            // }
 
-            //Debug.Log("Flipping over to main sim thread");
+            // for (int y = 0; y < GridSizeY; y++)
+            // {
+            //     gridData[x, y].isAlive = gridData[x, y].isAliveNextGeneration;
+            //     gridData[x, y].isAliveNextGeneration = false;
+            // }
+
+
+
         }
     }
 
+
+    // static private void FlipMainSimulationBool()
+    // {
+    //     if (topLeftCompleted && bottomLeftCompleted && topRightCompleted && bottomRightCompleted)
+    //     {
+    //         //while (isFlippingBools) { }
+
+    //         isFlippingBools = true;
+    //         mainSimulationThreadIsProcessing = true;
+    //         isFlippingBools = false;
+
+    //         //Debug.Log("Flipping over to main sim thread");
+    //     }
+    // }
 
 }
 
