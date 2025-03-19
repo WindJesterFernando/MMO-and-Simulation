@@ -48,7 +48,7 @@ public class DisplayAndApplicationManager : MonoBehaviour
 
         EditorApplication.pauseStateChanged += LogPauseState;
 
-        ConwaySimulation.StartSimulationThread();
+        ConwaySimulation.StartSimulationThreads();
 
     }
     void Update()

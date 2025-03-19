@@ -9,20 +9,26 @@ static public class ConwaySimulation
     static int generationNumber = 1;
     public const int GridSizeX = 100, GridSizeY = 100;
     static CellData[,] gridData;
-    static Thread simulationThread;//rename
+    static Thread unityAndSimulationCommunicationThread;
     static float timeSinceLastBenchmark;
     static long numberOfNanoSecondsElapsedSinceLastUpdate = 0;
     const int GenerationsUntilBenchmarkCheck = 10000;
 
-    const int NumberOfWorkerThreads = 8;
+    const int NumberOfWorkerThreads = 4;
     static LinkedList<Thread> workerThreadPool;
-    static int rowToBeDetermineIfAlive;
-    static int rowsDeterminedComplete;
+    static int currentRowToBeDetermineIfAliveNextGen;
+    static int numberOfRowsDeterminedToBeAliveNextGen;
     //https://stackoverflow.com/questions/420825/how-to-properly-lock-a-value-type
 
     static object rowToBeWorkedOnLock;
     static object rowsCompleteLock;
-    
+
+    static int currentRowToLoadAndClearBuffer;
+    static int numberOfRowsWithBufferLoadedAndCleared;
+
+    static int lastGenerationNumberUsedToBenchMark;
+
+    static SimulationState simState = SimulationState.DetermineIfAliveNextGen;
 
     static public void Init(DisplayAndApplicationManager displayAndApplicationManager)
     {
@@ -95,17 +101,20 @@ static public class ConwaySimulation
         }
 
         #endregion
+
     }
-    static public void StartSimulationThread()
+    static public void StartSimulationThreads()
     {
-        simulationThread = new Thread(new ThreadStart(ProcessSimThread));
-        simulationThread.Start();
+        unityAndSimulationCommunicationThread = new Thread(new ThreadStart(ProcessUnityAndSimulationCommunicationThread));
+        unityAndSimulationCommunicationThread.Start();
 
         workerThreadPool = new LinkedList<Thread>();
 
         for (int i = 0; i < NumberOfWorkerThreads; i++)
         {
-            Thread t = new Thread(new ThreadStart(DetermineIfCellsAreAliveNextGenerationOnRow));
+            Thread t = new Thread(new ThreadStart(ProcessWorkerThread));
+            //t.Priority = System.Threading.ThreadPriority.Highest;
+            //t.Priority = System.Threading.ThreadPriority.Lowest;
             workerThreadPool.AddLast(t);
         }
 
@@ -114,35 +123,48 @@ static public class ConwaySimulation
             t.Start();
         }
     }
-    static public void ProcessSimThread()
+    static public void ProcessUnityAndSimulationCommunicationThread()
     {
-        numberOfNanoSecondsElapsedSinceLastUpdate = Environment.TickCount;
+        //numberOfNanoSecondsElapsedSinceLastUpdate = Environment.TickCount;
         numberOfNanoSecondsElapsedSinceLastUpdate = Environment.TickCount;
 
         //for (int i = 0; i < 100; i++)
         while (true)
         {
-            if (displayAndApplicationManager.IsThreadPaused())
-            {
-                continue;
-            }
-
             #region DeltaTime
 
             long numberOfNanoSecondsElapsed = Environment.TickCount;
             long difInNanoSecs = (numberOfNanoSecondsElapsed - numberOfNanoSecondsElapsedSinceLastUpdate);
             float deltaTime = (float)difInNanoSecs / 1000f;
             numberOfNanoSecondsElapsedSinceLastUpdate = numberOfNanoSecondsElapsed;
-            timeSinceLastBenchmark += deltaTime;
 
             #endregion
 
+            if (displayAndApplicationManager.IsThreadPaused())
+            {
+                continue;
+            }
+
+            timeSinceLastBenchmark += deltaTime;
+
+            #region Benchmark Check
+
+            if (generationNumber % GenerationsUntilBenchmarkCheck == 0
+                && lastGenerationNumberUsedToBenchMark != generationNumber)
+            {
+                Debug.Log("Benchmark #" + generationNumber / GenerationsUntilBenchmarkCheck + ", time taken == " + timeSinceLastBenchmark);
+                timeSinceLastBenchmark = 0;
+                lastGenerationNumberUsedToBenchMark = generationNumber;
+            }
+
+            #endregion
 
             lock (rowsCompleteLock)
             {
                 //Debug.Log(rowsComplete);
 
-                if (rowsDeterminedComplete >= GridSizeX)
+                if (simState == SimulationState.EnqueBufferOfModelDataForVisuals)
+                //if (numberOfRowsWithBufferLoadedAndCleared >= GridSizeX)
                 {
                     generationNumber++;
 
@@ -150,41 +172,60 @@ static public class ConwaySimulation
 
                     lock (rowToBeWorkedOnLock)
                     {
-
-                        for (int x = 0; x < GridSizeX; x++)
-                        {
-                            for (int y = 0; y < GridSizeY; y++)
-                            {
-                                gridData[x, y].isAlive = gridData[x, y].isAliveNextGeneration;
-                                gridData[x, y].isAliveNextGeneration = false;
-                            }
-                        }
-
                         if (displayAndApplicationManager.IsBufferQueueOfModelDataForVisualsEmpty())
                         {
                             bool[,] toBuffer = CreateDeepCopyOfGrid(gridData);
                             displayAndApplicationManager.EnqueBufferOfModelDataForVisuals(toBuffer);
                         }
 
-                        rowToBeDetermineIfAlive = 0;
+                        // currentRowToBeDetermineIfAliveNextGen = 0;
+                        // currentRowToLoadAndClearBuffer = 0;
                     }
 
+                    // numberOfRowsDeterminedToBeAliveNextGen = 0;
+                    // numberOfRowsWithBufferLoadedAndCleared = 0;
 
-                    rowsDeterminedComplete = 0;
+                    //ChangeSimulationState(SimulationState.DetermineIfAliveNextGen);
 
                     #endregion
 
-                    #region Benchmark Check
+                    // #region Benchmark Check
 
-                    if (generationNumber % GenerationsUntilBenchmarkCheck == 0)
-                    {
-                        Debug.Log("Benchmark #" + generationNumber / GenerationsUntilBenchmarkCheck + ", time taken == " + timeSinceLastBenchmark);
-                        timeSinceLastBenchmark = 0;
-                    }
+                    // if (generationNumber % GenerationsUntilBenchmarkCheck == 0)
+                    // {
+                    //     Debug.Log("Benchmark #" + generationNumber / GenerationsUntilBenchmarkCheck + ", time taken == " + timeSinceLastBenchmark);
+                    //     timeSinceLastBenchmark = 0;
+                    // }
 
-                    #endregion
+                    // #endregion
                 }
             }
+
+
+            if (simState == SimulationState.DetermineIfAliveNextGen)
+            {
+                if (numberOfRowsDeterminedToBeAliveNextGen >= GridSizeX)
+                    ChangeSimulationState(SimulationState.LoadAndClearBuffer);
+            }
+            else if (simState == SimulationState.LoadAndClearBuffer)
+            {
+                if (numberOfRowsWithBufferLoadedAndCleared >= GridSizeX)
+                    ChangeSimulationState(SimulationState.EnqueBufferOfModelDataForVisuals);
+            }
+            else if (simState == SimulationState.EnqueBufferOfModelDataForVisuals)
+            {
+                //if (displayAndApplicationManager.IsBufferQueueOfModelDataForVisualsEmpty())
+                    ChangeSimulationState(SimulationState.DetermineIfAliveNextGen);
+            }
+
+
+
+
+
+
+
+            // 
+
         }
 
     }
@@ -290,7 +331,7 @@ static public class ConwaySimulation
     }
     static public void AbortThreads()
     {
-        simulationThread.Abort();
+        unityAndSimulationCommunicationThread.Abort();
 
         foreach (Thread t in workerThreadPool)
         {
@@ -301,53 +342,149 @@ static public class ConwaySimulation
     {
         return generationNumber;
     }
-    static public void DetermineIfCellsAreAliveNextGenerationOnRow()
+    static public void ProcessWorkerThread()
     {
         while (true)
         {
+            if (displayAndApplicationManager.IsThreadPaused())
+            {
+                continue;
+            }
+
+            #region DetermineIfCellsAreAliveNextGenerationOnRow
+
             int x;
 
-            lock (rowToBeWorkedOnLock)
+            //if (numberOfRowsDeterminedToBeAliveNextGen < GridSizeX)
+            if (simState == SimulationState.DetermineIfAliveNextGen)
             {
-                x = rowToBeDetermineIfAlive;
-                rowToBeDetermineIfAlive++;
-            }
-
-            if (x < GridSizeX)
-            {
-                //Debug.Log("X == " + x);
-                for (int y = 0; y < GridSizeY; y++)
+                lock (rowToBeWorkedOnLock)
                 {
-                    gridData[x, y].isAliveNextGeneration = DetermineIfCellIsAliveNextGeneration(x, y);
+                    x = currentRowToBeDetermineIfAliveNextGen;
+                    currentRowToBeDetermineIfAliveNextGen++;
                 }
 
-                lock (rowsCompleteLock)
+                if (x < GridSizeX)
                 {
-                    rowsDeterminedComplete++;
+                    //Debug.Log("X == " + x);
+                    for (int y = 0; y < GridSizeY; y++)
+                    {
+                        gridData[x, y].isAliveNextGeneration = DetermineIfCellIsAliveNextGeneration(x, y);
+                    }
+
+                    lock (rowsCompleteLock)
+                    {
+                        numberOfRowsDeterminedToBeAliveNextGen++;
+
+                        // if (numberOfRowsDeterminedToBeAliveNextGen >= GridSizeX)
+                        //     ChangeSimulationState(SimulationState.LoadAndClearBuffer);
+
+                    }
                 }
+
             }
 
+            #endregion
+
+            #region LoadAndClearNextGenerationBuffer
+
+            //if (numberOfRowsDeterminedToBeAliveNextGen >= GridSizeX)
+            if (simState == SimulationState.LoadAndClearBuffer)
+            {
+                lock (rowToBeWorkedOnLock)
+                {
+                    x = currentRowToLoadAndClearBuffer;
+                    currentRowToLoadAndClearBuffer++;
+                }
+
+                if (x < GridSizeX)
+                {
+
+                    for (int y = 0; y < GridSizeY; y++)
+                    {
+                        gridData[x, y].isAlive = gridData[x, y].isAliveNextGeneration;
+                        gridData[x, y].isAliveNextGeneration = false;
+                    }
+
+                    lock (rowsCompleteLock)
+                    {
+                        numberOfRowsWithBufferLoadedAndCleared++;
+
+                        // if (numberOfRowsWithBufferLoadedAndCleared >= GridSizeX)
+                        //     ChangeSimulationState(SimulationState.EnqueBufferOfModelDataForVisuals);
+                    }
+                }
+
+            }
+
+            #endregion
 
 
 
-//if appropriate, advance buffer
 
-            // lock (rowToBeWorkedOnLock)
+
+            // lock (rowsCompleteLock)
             // {
-            //     x = rowToBeDetermineIfAlive;
-            //     rowToBeDetermineIfAlive++;
+            //     if (numberOfRowsWithBufferLoadedAndCleared >= GridSizeX)
+            //     {
+
+            //         generationNumber++;
+
+            //         #region Process Generation On Model Data
+
+            //         lock (rowToBeWorkedOnLock)
+            //         {
+            //             if (displayAndApplicationManager.IsBufferQueueOfModelDataForVisualsEmpty())
+            //             {
+            //                 bool[,] toBuffer = CreateDeepCopyOfGrid(gridData);
+            //                 displayAndApplicationManager.EnqueBufferOfModelDataForVisuals(toBuffer);
+            //             }
+
+            //             currentRowToBeDetermineIfAliveNextGen = 0;
+            //             currentRowToLoadAndClearBuffer = 0;
+            //         }
+
+            //         numberOfRowsDeterminedToBeAliveNextGen = 0;
+            //         numberOfRowsWithBufferLoadedAndCleared = 0;
+
+            //         #endregion
+
+            //     }
             // }
-
-            // for (int y = 0; y < GridSizeY; y++)
-            // {
-            //     gridData[x, y].isAlive = gridData[x, y].isAliveNextGeneration;
-            //     gridData[x, y].isAliveNextGeneration = false;
-            // }
-
-
 
         }
     }
+
+    static private void ChangeSimulationState(SimulationState state)
+    {
+
+        if (state == SimulationState.DetermineIfAliveNextGen)
+        {
+            currentRowToBeDetermineIfAliveNextGen = 0;
+            numberOfRowsDeterminedToBeAliveNextGen = 0;
+        }
+        else if (state == SimulationState.LoadAndClearBuffer)
+        {
+            currentRowToLoadAndClearBuffer = 0;
+            numberOfRowsWithBufferLoadedAndCleared = 0;
+        }
+        simState = state;
+
+        Debug.Log("-------State == " + state + " -----------------");
+        Debug.Log("currentRowToBeDetermineIfAliveNextGen == " + currentRowToBeDetermineIfAliveNextGen);
+        Debug.Log("currentRowToLoadAndClearBuffer == " + currentRowToLoadAndClearBuffer);
+        Debug.Log("numberOfRowsDeterminedToBeAliveNextGen == " + numberOfRowsDeterminedToBeAliveNextGen);
+        Debug.Log("numberOfRowsWithBufferLoadedAndCleared == " + numberOfRowsWithBufferLoadedAndCleared);
+    }
+
+    enum SimulationState
+    {
+        DetermineIfAliveNextGen,
+        LoadAndClearBuffer,
+        EnqueBufferOfModelDataForVisuals,
+
+    }
+
 
 
     // static private void FlipMainSimulationBool()
