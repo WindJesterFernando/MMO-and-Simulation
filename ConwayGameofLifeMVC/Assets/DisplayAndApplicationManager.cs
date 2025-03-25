@@ -101,7 +101,7 @@ public class DisplayAndApplicationManager : MonoBehaviour
     {
         return bufferQueueOfModelDataForVisuals.Count == 0;
     }
-    public void EnqueBufferOfModelDataForVisuals(bool[,] dataToEnqueue)
+    public void EnqueueBufferOfModelDataForVisuals(bool[,] dataToEnqueue)
     {
         lock (bufferQueueOfModelDataForVisuals)
             bufferQueueOfModelDataForVisuals.Enqueue(dataToEnqueue);
