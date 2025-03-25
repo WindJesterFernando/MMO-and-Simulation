@@ -16,24 +16,15 @@ static public class ConwaySimulation
 
     const int NumberOfWorkerThreads = 4;
     static LinkedList<Thread> workerThreadPool;
-    static int currentRowToBeDetermineIfAliveNextGen;
-    static int numberOfRowsDeterminedToBeAliveNextGen;
-    //https://stackoverflow.com/questions/420825/how-to-properly-lock-a-value-type
-
-    static object rowToBeWorkedOnLock;
-    static object rowsCompleteLock;
-
-    static int currentRowToLoadAndClearBuffer;
-    static int numberOfRowsWithBufferLoadedAndCleared;
 
     static int lastGenerationNumberUsedToBenchMark;
 
     static Queue<WorkToBeDone> workToBeDones;
+    static Queue<WorkToBeDone> workToBeDones2;
 
-    static int DebugCountForDetermineIfAliveNextGen;
-    static int DebugCountForLoadAndClearBuffer;
+    static DebugStuffs debugStuffs;
 
-    static int numberOfWorkerThreadsDoingWork;
+
 
     //static bool pauseForEnqueueing;
 
@@ -42,8 +33,8 @@ static public class ConwaySimulation
     static public void Init(DisplayAndApplicationManager displayAndApplicationManager)
     {
         //Debug.Log("Environment.ProcessorCount == " + Environment.ProcessorCount);
-        rowToBeWorkedOnLock = new object();
-        rowsCompleteLock = new object();
+
+        debugStuffs = new DebugStuffs();
 
         ConwaySimulation.displayAndApplicationManager = displayAndApplicationManager;
 
@@ -112,6 +103,7 @@ static public class ConwaySimulation
         #endregion
 
         workToBeDones = new Queue<WorkToBeDone>();
+        workToBeDones2 = new Queue<WorkToBeDone>();
         EnqueueWorkToBeDones();
 
         // while (workToBeDones.Count != 0)
@@ -181,28 +173,32 @@ static public class ConwaySimulation
 
             lock (workToBeDones)
             {
-                //Debug.Log("---------");
-
-                //Debug.Log(numberOfWorkerThreadsDoingWork);
-
-                if (workToBeDones.Count == 0)// && numberOfWorkerThreadsDoingWork == 0)
-                // && DebugCountForDetermineIfAliveNextGen % 100 == 0
-                // && DebugCountForLoadAndClearBuffer % 100 == 0)
+                lock (workToBeDones2)
                 {
-                    Debug.Log("AliveNextGen = " + DebugCountForDetermineIfAliveNextGen + "   Buffer = " + DebugCountForLoadAndClearBuffer);
+                    //Debug.Log("---------");
 
-                    //if (simState == SimulationState.EnqueBufferOfModelDataForVisuals)
+                    //Debug.Log(numberOfWorkerThreadsDoingWork);
+
+                    if (workToBeDones.Count == 0 && workToBeDones2.Count == 0 && debugStuffs.threadsDoingWork == 0)
+                    // && debugStuffs.DebugCountForDetermineIfAliveNextGen % 100 == 0
+                    // && debugStuffs.DebugCountForLoadAndClearBuffer % 100 == 0)
                     {
-                        generationNumber++;
+                        // lock (debugStuffs)
+                        //     Debug.Log("AliveNextGen = " + debugStuffs.DebugCountForDetermineIfAliveNextGen + "   Buffer = " + debugStuffs.DebugCountForLoadAndClearBuffer);
 
-                        if (displayAndApplicationManager.IsBufferQueueOfModelDataForVisualsEmpty())
+                        //if (simState == SimulationState.EnqueBufferOfModelDataForVisuals)
                         {
-                            bool[,] toBuffer = CreateDeepCopyOfGrid(gridData);
-                            displayAndApplicationManager.EnqueBufferOfModelDataForVisuals(toBuffer);
-                        }
-                    }
+                            generationNumber++;
 
-                    EnqueueWorkToBeDones();
+                            if (displayAndApplicationManager.IsBufferQueueOfModelDataForVisualsEmpty())
+                            {
+                                bool[,] toBuffer = CreateDeepCopyOfGrid(gridData);
+                                displayAndApplicationManager.EnqueBufferOfModelDataForVisuals(toBuffer);
+                            }
+                        }
+
+                        EnqueueWorkToBeDones();
+                    }
                 }
             }
         }
@@ -338,17 +334,37 @@ static public class ConwaySimulation
 
             lock (workToBeDones)
             {
-                if (workToBeDones.Count == 0)
-                    continue;
+                lock (workToBeDones2)
+                {
+                    bool useFirstQueue = true;
+                    // https://i.imgur.com/y5qT1WV.png
+                    if (workToBeDones.Count == 0)
+                    {
+                        // todo allow more than one thread to use second queue
+                        if (debugStuffs.threadsDoingWork > 0)
+                        {
+                            continue;
+                        }
 
-                numberOfWorkerThreadsDoingWork++;
-                workToBeDone = workToBeDones.Dequeue();
+                        useFirstQueue = false;
+                    }
 
-                x = workToBeDone.rowToWorkOn;
-                simState = workToBeDone.state;
+                    if (workToBeDones2.Count == 0)
+                    {
+                        continue;
+                    }
+
+                    lock (debugStuffs)
+                        debugStuffs.threadsDoingWork++;
+
+                    workToBeDone = (useFirstQueue ? workToBeDones : workToBeDones2).Dequeue();
+                }
             }
 
-            //Debug.Log(simState);
+            x = workToBeDone.rowToWorkOn;
+            simState = workToBeDone.state;
+
+            //Debug.Log(simState + ", " + x);
 
             #region DetermineIfCellsAreAliveNextGenerationOnRow
 
@@ -359,7 +375,8 @@ static public class ConwaySimulation
                     gridData[x, y].isAliveNextGeneration = DetermineIfCellIsAliveNextGeneration(x, y);
                 }
 
-                DebugCountForDetermineIfAliveNextGen++;
+                lock (debugStuffs)
+                    debugStuffs.DebugCountForDetermineIfAliveNextGen++;
             }
 
             #endregion
@@ -374,12 +391,17 @@ static public class ConwaySimulation
                     gridData[x, y].isAliveNextGeneration = false;
                 }
 
-                DebugCountForLoadAndClearBuffer++;
+                lock (debugStuffs)
+                    debugStuffs.DebugCountForLoadAndClearBuffer++;
             }
 
-            numberOfWorkerThreadsDoingWork--;
-
             #endregion
+
+            // lock (debugStuffs)
+            //     Debug.Log("***AliveNextGen = " + debugStuffs.DebugCountForDetermineIfAliveNextGen + "   Buffer = " + debugStuffs.DebugCountForLoadAndClearBuffer);
+
+            lock (debugStuffs)
+                debugStuffs.threadsDoingWork--;
 
         }
     }
@@ -387,21 +409,32 @@ static public class ConwaySimulation
     static public void EnqueueWorkToBeDones()
     {
         Queue<WorkToBeDone> temp = new Queue<WorkToBeDone>();
+        Queue<WorkToBeDone> temp2 = new Queue<WorkToBeDone>();
 
         for (int x = 0; x < GridSizeX; x++)
         {
             temp.Enqueue(new WorkToBeDone(SimulationState.DetermineIfAliveNextGen, x));
         }
 
+        //temp.Enqueue(new WorkToBeDone(SimulationState.EnqueNextBatchOfDetermineIfAliveNextGen));
+
         for (int x = 0; x < GridSizeX; x++)
         {
-            temp.Enqueue(new WorkToBeDone(SimulationState.LoadAndClearBuffer, x));
+            temp2.Enqueue(new WorkToBeDone(SimulationState.LoadAndClearBuffer, x));
         }
 
-        lock (workToBeDones)
-            workToBeDones = temp;
+        //temp.Enqueue(new WorkToBeDone(SimulationState.EnqueNextBatchOfLoadAndClearBuffer));
 
+        lock (workToBeDones)
+        {
+            lock (workToBeDones2)
+            {
+                workToBeDones = temp;
+                workToBeDones2 = temp2;
+            }
+        }
     }
+
 
 }
 
@@ -436,3 +469,15 @@ public struct WorkToBeDone
     }
 }
 
+public class DebugStuffs
+{
+    public int DebugCountForDetermineIfAliveNextGen;
+    public int DebugCountForLoadAndClearBuffer;
+    public int threadsDoingWork;
+}
+
+//
+//
+//
+//
+//Go look at answers online
